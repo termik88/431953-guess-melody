@@ -21,7 +21,7 @@ const showTemplates = (index) => {
 
 showTemplates(currentTemplatesIndex);
 
-document.onKeyDown = (key) => {
+document.onkeydown = (key) => {
   if (key.altKey && key.keyCode === KEY_CODES.LEFT && currentTemplatesIndex > 0) {
     showTemplates(--currentTemplatesIndex);
   }
