@@ -1,4 +1,4 @@
-import createElement from '../util/createElement';
+import {getElementFromTemplate, screenChange} from '../util';
 
 const template = `
   <!-- Игра на выбор жанра -->
@@ -85,6 +85,6 @@ const template = `
     </div>
   </section>`;
 
-const view = createElement(template);
+const view = getElementFromTemplate(template);
 
 export default view;

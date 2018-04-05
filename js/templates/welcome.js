@@ -1,4 +1,5 @@
-import createElement from '../util/createElement';
+import {getElementFromTemplate, screenChange} from '../util';
+import levelArtist from './levelArtist';
 
 const template = `
   <section class="main main--welcome">
@@ -12,6 +13,9 @@ const template = `
     </p>
   </section>`;
 
-const view = createElement(template);
+const screenWelcome = getElementFromTemplate(template);
+const playButton = screenWelcome.querySelector(`.main-play`);
+playButton.addEventListener(`click`, () => screenChange(levelArtist));
 
-export default view;
+export default screenWelcome;
+

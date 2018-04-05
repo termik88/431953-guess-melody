@@ -1,4 +1,4 @@
 import welcome from './templates/welcome';
-import changeTemplate from './util/changeTemlate';
+import {screenChange} from './util';
 
-changeTemplate(welcome);
+screenChange(welcome);

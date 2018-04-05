@@ -1,12 +1,11 @@
-export const createElement = (template) => {
-  const outer = document.createElement(`div`);
-  outer.innerHTML = template;
-  return outer;
+export const screenChange = (screenElement) => {
+  const layout = document.querySelector(`.main`);
+  layout.innerHTML = ``;
+  layout.appendChild(screenElement);
 };
 
-const layout = document.getElementById(`main`);
-
-export const changeTemplate = (element) => {
-  layout.innerHTML = ``;
-  layout.appendChild(element);
+export const getElementFromTemplate = (stringTemplate) => {
+  const wrapper = document.createElement(`div`);
+  wrapper.innerHTML = stringTemplate;
+  return wrapper.firstElementChild;
 };
