@@ -1,4 +1,7 @@
-import {getElementFromTemplate, screenChange} from '../util';
+import {screenChange, getElementFromTemplate, getRandomIndex} from '../util';
+import resultGood from './resultGood';
+import resultBad from './resultBad';
+import resultIsOverTime from './resultIsOverTime';
 
 const template = `
   <!-- Игра на выбор жанра -->
@@ -85,6 +88,37 @@ const template = `
     </div>
   </section>`;
 
-const view = getElementFromTemplate(template);
+const screenLevelGenre = getElementFromTemplate(template);
 
-export default view;
+export default () => {
+  const result = {
+    good: resultGood,
+    bad: resultBad,
+    isOverTime: resultIsOverTime
+  };
+
+  const resultLength = Object.keys(result).length;
+  const resultArrayKey = Object.getOwnPropertyNames(result);
+  const resultIndex = getRandomIndex(resultLength);
+  const resultRandomKey = resultArrayKey[resultIndex];
+  const resultButton = screenLevelGenre.querySelector(`.genre-answer-send`);
+  resultButton.setAttribute(`disabled`, `true`);
+  const answersButton = screenLevelGenre.querySelectorAll(`input[name=answer]`);
+
+  [...answersButton].forEach((answerButton) => {
+    answerButton.addEventListener(`change`, () => {
+      const isAnswerButtonChecked = [...answersButton].some((item) => item.checked);
+      if (isAnswerButtonChecked) {
+        resultButton.removeAttribute(`disabled`);
+      }
+      if (!isAnswerButtonChecked) {
+        resultButton.setAttribute(`disabled`, `true`);
+      }
+    });
+  });
+
+  resultButton.addEventListener(`click`, () => screenChange(result[resultRandomKey]()));
+
+  return screenLevelGenre;
+};
+

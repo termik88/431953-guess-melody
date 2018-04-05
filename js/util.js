@@ -9,3 +9,7 @@ export const getElementFromTemplate = (stringTemplate) => {
   wrapper.innerHTML = stringTemplate;
   return wrapper.firstElementChild;
 };
+
+export const getRandomIndex = (length) => {
+  return Math.trunc(Math.random() * (length));
+};

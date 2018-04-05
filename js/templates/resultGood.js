@@ -1,4 +1,5 @@
-import createElement from '../util/createElement';
+import {getElementFromTemplate, screenChange} from '../util';
+import welcome from "./welcome";
 
 const template = `
   <section class="main main--result">
@@ -12,6 +13,11 @@ const template = `
     <span role="button" tabindex="0" class="main-replay">Сыграть ещё раз</span>
   </section>`;
 
-const view = createElement(template);
+const screenResultGood = getElementFromTemplate(template);
 
-export default view;
+export default () => {
+  const replayButton = screenResultGood.querySelector(`.main-replay`);
+  replayButton.addEventListener(`click`, () => screenChange(welcome()));
+
+  return screenResultGood;
+};

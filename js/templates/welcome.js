@@ -14,8 +14,11 @@ const template = `
   </section>`;
 
 const screenWelcome = getElementFromTemplate(template);
-const playButton = screenWelcome.querySelector(`.main-play`);
-playButton.addEventListener(`click`, () => screenChange(levelArtist));
 
-export default screenWelcome;
+export default () => {
+  const playButton = screenWelcome.querySelector(`.main-play`);
+  playButton.addEventListener(`click`, () => screenChange(levelArtist()));
+
+  return screenWelcome;
+};
 

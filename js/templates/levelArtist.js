@@ -63,7 +63,12 @@ const template = `
   </section>`;
 
 const screenLevelArtist = getElementFromTemplate(template);
-const answerButton = screenLevelArtist.querySelector(`.main-answer`);
-answerButton.addEventListener(`click`, () => screenChange(levelGenre));
 
-export default screenLevelArtist;
+export default () => {
+  const answerButton = screenLevelArtist.querySelectorAll(`.main-answer`);
+  [...answerButton].forEach((answer) => {
+    answer.addEventListener(`click`, () => screenChange(levelGenre()));
+  });
+
+  return screenLevelArtist;
+};
