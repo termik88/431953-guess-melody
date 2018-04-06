@@ -102,8 +102,10 @@ export default () => {
   const resultIndex = getRandomIndex(resultLength);
   const resultRandomKey = resultArrayKey[resultIndex];
   const resultButton = screenLevelGenre.querySelector(`.genre-answer-send`);
-  resultButton.setAttribute(`disabled`, `true`);
   const answersButton = screenLevelGenre.querySelectorAll(`input[name=answer]`);
+
+  screenLevelGenre.querySelector(`.genre`).reset();
+  resultButton.setAttribute(`disabled`, `true`);
 
   [...answersButton].forEach((answerButton) => {
     answerButton.addEventListener(`change`, () => {
