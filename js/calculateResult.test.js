@@ -30,6 +30,19 @@ const testArrayAnswersSlowRun = [
   {isCorrect:	true,	time:	getRandomTime()}
 ];
 
+const testArrayAnswersVerySlowRun = [
+  {isCorrect:	true,	time:	getRandomTime(31, 50)},
+  {isCorrect:	true,	time:	getRandomTime(31, 50)},
+  {isCorrect:	true,	time:	getRandomTime(31, 50)},
+  {isCorrect:	true,	time:	getRandomTime(31, 50)},
+  {isCorrect:	true,	time:	getRandomTime(31, 50)},
+  {isCorrect:	true,	time:	getRandomTime(31, 50)},
+  {isCorrect:	true,	time:	getRandomTime(31, 50)},
+  {isCorrect:	true,	time:	getRandomTime(31, 50)},
+  {isCorrect:	true,	time:	getRandomTime(31, 50)},
+  {isCorrect:	true,	time:	getRandomTime(31, 50)}
+];
+
 const testArrayAnswersNine = [
   {isCorrect:	true,	time:	getRandomTime(31, 50)},
   {isCorrect:	true,	time:	getRandomTime(31, 50)},
@@ -41,7 +54,20 @@ const testArrayAnswersNine = [
   {isCorrect:	true,	time:	getRandomTime()},
   {isCorrect:	true,	time:	getRandomTime()}
 ];
-
+/*
+const testArrayAnswersTimeUp = [
+  {isCorrect:	true,	time:	getRandomTime(61, 150)},
+  {isCorrect:	true,	time:	getRandomTime(31, 150)},
+  {isCorrect:	true,	time:	getRandomTime(31, 150)},
+  {isCorrect:	true,	time:	getRandomTime(31, 150)},
+  {isCorrect:	true,	time:	getRandomTime(61, 150)},
+  {isCorrect:	true,	time:	getRandomTime(61, 150)},
+  {isCorrect:	true,	time:	getRandomTime(61, 150)},
+  {isCorrect:	true,	time:	getRandomTime(31, 150)},
+  {isCorrect:	true,	time:	getRandomTime(31, 150)},
+  {isCorrect:	true,	time:	getRandomTime(31, 150)}
+];
+*/
 const getPoints = (answer) => {
   if (!answer.isCorrect) {
     return -2;
@@ -52,7 +78,6 @@ const getPoints = (answer) => {
   return 1;
 };
 
-
 const calculateResult = (answers) => {
   if (answers.length < 10) {
     return -1;
@@ -60,16 +85,13 @@ const calculateResult = (answers) => {
 
   /*
   const timeUp = answers.reduce((sum, {time}) => sum + time, 0);
-  */
 
-  let result = 0;
-  answers.forEach((answer) => {
-    result = result + getPoints(answer);
-  });
-
-  return result;
+  if (timeUp > 300) {
+    return -1;
+  }
+*/
+  return answers.reduce((result, answer) => result + getPoints(answer), 0);
 };
-
 
 describe(`Calculate Result Game`, () => {
   it(`Игрок ответил меньше, чем на 10 вопросов`, () => {
@@ -78,7 +100,15 @@ describe(`Calculate Result Game`, () => {
   it(`Посчет очков быстрой игры и с ответами на все вопросы`, () => {
     assert.equal(calculateResult(testArrayAnswersFastRun), 20);
   });
-  it(`Посчет очков медленной игры и с ответами на все вопросы`, () => {
+  it(`Посчет очков игры с несколькими медленными ответами и с ответами на все вопросы`, () => {
     assert.equal(calculateResult(testArrayAnswersSlowRun), 17);
   });
+  it(`Посчет очков медленной игры и с ответами на все вопросы`, () => {
+    assert.equal(calculateResult(testArrayAnswersVerySlowRun), 10);
+  });
+  /*
+  it(`Законилось время`, () => {
+    assert.equal(calculateResult(testArrayAnswersTimeUp), -1);
+  });
+  */
 });
