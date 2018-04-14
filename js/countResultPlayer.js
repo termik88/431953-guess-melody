@@ -5,10 +5,10 @@ export default (statistics, playerResult) => {
   const positionCurrentPlayer = generalStatistics.findIndex((item) => item.current) + 1;
   const successRate = (generalStatistics.length - positionCurrentPlayer) / generalStatistics.length * 100;
 
-  if (playerStatistics.timeLeft === 0) {
+  if (!playerStatistics.timeLeft) {
     return `«Время вышло! Вы не успели отгадать все мелодии»`;
   }
-  if (playerStatistics.note === 0) {
+  if (!playerStatistics.note) {
     return `«У вас закончились все попытки. Ничего, повезёт в следующий раз!»`;
   }
 
