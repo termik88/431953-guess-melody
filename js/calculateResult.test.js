@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import {calculateResult} from './calculateResult';
+import calculateResult from './calculateResult';
 
 const getRandomTime = (min = 0, max = 30) => {
   return Math.floor(Math.random() * (max - min)) + min;
