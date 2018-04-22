@@ -12,7 +12,7 @@ const template = `
 
 const screenIsOverTime = getElementFromTemplate(template);
 
-export default () => {
+export default (data) => {
   const replayButton = screenIsOverTime.querySelector(`.main-replay`);
   replayButton.addEventListener(`click`, () => screenChange(welcome()));
 

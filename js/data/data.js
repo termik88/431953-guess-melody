@@ -6,9 +6,3 @@ export const welcomeDate = {
       Ошибиться можно 3 раза.<br>
       Удачи!`
 };
-
-export const initialState = {
-  level: 0,
-  lives: 3,
-  time: 3
-};
