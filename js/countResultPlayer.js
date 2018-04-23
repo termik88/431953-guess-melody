@@ -1,16 +1,28 @@
-export default (statistics, playerResult) => {
+import {statistics} from './data/data';
+import resultOverTime from './templates/resultIsOverTime';
+import resultBad from './templates/resultBad';
+import resultGood from "./templates/resultGood";
+
+export default (playerResult) => {
 
   const playerStatistics = Object.assign({}, playerResult, {current: true});
-  const generalStatistics = [...statistics, playerStatistics].sort((a, b) => b.points - a.points);
+  const generalStatistics = [...statistics, playerStatistics].sort((a, b) => b.result - a.result);
   const positionCurrentPlayer = generalStatistics.findIndex((item) => item.current) + 1;
   const successRate = (generalStatistics.length - positionCurrentPlayer) / generalStatistics.length * 100;
 
-  if (!playerStatistics.timeLeft) {
-    return `«Время вышло! Вы не успели отгадать все мелодии»`;
-  }
-  if (!playerStatistics.note) {
-    return `«У вас закончились все попытки. Ничего, повезёт в следующий раз!»`;
+  if (300 - playerStatistics.time <= 0) {
+    return resultOverTime();
   }
 
-  return `Вы заняли ${positionCurrentPlayer} место из ${generalStatistics.length} игроков. Это лучше, чем у ${successRate}% игроков.`;
+  if (!playerStatistics.note) {
+    return resultBad();
+  }
+
+  return resultGood({
+    'playerResult': playerResult.result,
+    'numberFastAnswer': playerResult.numberFastAnswer,
+    'positionStatistic': positionCurrentPlayer,
+    'generalStatistic': generalStatistics.length,
+    'successRate': successRate
+  });
 };

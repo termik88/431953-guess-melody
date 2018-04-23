@@ -1,109 +1,57 @@
-import {screenChange, getElementFromTemplate, getRandomIndex} from '../util';
-import resultGood from './resultGood';
-import resultBad from './resultBad';
-import resultIsOverTime from './resultIsOverTime';
+import {getElementFromTemplate, screenChange, getCurrentAnswer, getRandomAnswers} from '../util';
+import header from "./header";
+import questions from "./questions";
+import levelArtist from './levelArtist';
+import calculateResult from '../calculateResult';
+import countResultPlayer from '../countResultPlayer';
 
-const template = `
-  <!-- Игра на выбор жанра -->
-  <section class="main main--level main--level-genre">
-    <svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
-      <circle
-        cx="390" cy="390" r="370"
-        class="timer-line"
-        style="filter: url(.#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center"></circle>
-
-      <div class="timer-value" xmlns="http://www.w3.org/1999/xhtml">
-        <span class="timer-value-mins">05</span><!--
-        --><span class="timer-value-dots">:</span><!--
-        --><span class="timer-value-secs">00</span>
-      </div>
-    </svg>
-    <div class="main-mistakes">
-      <img class="main-mistake" src="img/wrong-answer.png" width="35" height="49">
-      <img class="main-mistake" src="img/wrong-answer.png" width="35" height="49">
-      <img class="main-mistake" src="img/wrong-answer.png" width="35" height="49">
-    </div>
-
-    <div class="main-wrap">
-      <h2 class="title">Выберите инди-рок треки</h2>
-      <form class="genre">
-        <div class="genre-answer">
-          <div class="player-wrapper">
-            <div class="player">
-              <audio></audio>
-              <button class="player-control player-control--pause"></button>
-              <div class="player-track">
-                <span class="player-status"></span>
+const variantsAnswers = (answerArr) => {
+  let html = ``;
+  answerArr.forEach((item, i) => {
+    html += `<div class="genre-answer">
+              <div class="player-wrapper">
+                <div class="player">
+                  <audio src="${item.src}"></audio>
+                  <button class="player-control player-control--pause"></button>
+                  <div class="player-track">
+                    <span class="player-status">${item.genre}"</span>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          <input type="checkbox" name="answer" value="answer-1" id="a-1">
-          <label class="genre-answer-check" for="a-1"></label>
-        </div>
+              <input type="checkbox" name="answer" value="${item.genre}" id="a-${i}">
+              <label class="genre-answer-check" for="a-${i}"></label>
+            </div>`;
+  });
+  return html;
+};
 
-        <div class="genre-answer">
-          <div class="player-wrapper">
-            <div class="player">
-              <audio></audio>
-              <button class="player-control player-control--play"></button>
-              <div class="player-track">
-                <span class="player-status"></span>
+const template = (state, correctAnswer, answerArr) => {
+  return `<section class="main main--level main--level-genre">
+              ${header(state)}                  
+              <div class="main-wrap">
+                <h2 class="title">Выберите ${correctAnswer.genre} треки</h2>
+                <form class="genre">
+                  ${variantsAnswers(answerArr)}
+                  <button class="genre-answer-send" type="submit">Ответить</button>
+                </form>
               </div>
-            </div>
-          </div>
-          <input type="checkbox" name="answer" value="answer-1" id="a-2">
-          <label class="genre-answer-check" for="a-2"></label>
-        </div>
+            </section>`;
+};
 
-        <div class="genre-answer">
-          <div class="player-wrapper">
-            <div class="player">
-              <audio></audio>
-              <button class="player-control player-control--play"></button>
-              <div class="player-track">
-                <span class="player-status"></span>
-              </div>
-            </div>
-          </div>
-          <input type="checkbox" name="answer" value="answer-1" id="a-3">
-          <label class="genre-answer-check" for="a-3"></label>
-        </div>
-
-        <div class="genre-answer">
-          <div class="player-wrapper">
-            <div class="player">
-              <audio></audio>
-              <button class="player-control player-control--play"></button>
-              <div class="player-track">
-                <span class="player-status"></span>
-              </div>
-            </div>
-          </div>
-          <input type="checkbox" name="answer" value="answer-1" id="a-4">
-          <label class="genre-answer-check" for="a-4"></label>
-        </div>
-
-        <button class="genre-answer-send" type="submit">Ответить</button>
-      </form>
-    </div>
-  </section>`;
-
-const screenLevelGenre = getElementFromTemplate(template);
-
-export default () => {
-  const result = {
-    good: resultGood,
-    bad: resultBad,
-    isOverTime: resultIsOverTime
+export default (data, totalAnswers) => {
+  let currentState = {
+    level: ++data.level,
+    lives: data.lives,
+    gameType: `genre`
   };
 
-  const resultLength = Object.keys(result).length;
-  const resultArrayKey = Object.getOwnPropertyNames(result);
-  const resultIndex = getRandomIndex(resultLength);
-  const resultRandomKey = resultArrayKey[resultIndex];
+  const randomAnswers = getRandomAnswers(questions, currentState.gameType);
+  const correctAnswer = getCurrentAnswer(randomAnswers);
+
+  const screenLevelGenre = getElementFromTemplate(template(currentState, correctAnswer, randomAnswers));
+
   const resultButton = screenLevelGenre.querySelector(`.genre-answer-send`);
   const answersButton = screenLevelGenre.querySelectorAll(`input[name=answer]`);
-
   screenLevelGenre.querySelector(`.genre`).reset();
   resultButton.setAttribute(`disabled`, `true`);
 
@@ -119,8 +67,30 @@ export default () => {
     });
   });
 
-  resultButton.addEventListener(`click`, () => screenChange(result[resultRandomKey]()));
+  resultButton.addEventListener(`click`, () => {
+    const answersButtonChecked = [...answersButton].filter((item) => item.checked);
+    const isCorrect = answersButtonChecked.every((item) => item.value === correctAnswer.genre);
+
+    if (isCorrect) {
+      totalAnswers.push({'isCorrect': true, 'time': 25, 'note': currentState.lives});
+      if (currentState.level === 10) {
+        screenChange(countResultPlayer(calculateResult(totalAnswers)));
+      } else {
+        screenChange(levelArtist(currentState, totalAnswers));
+      }
+    }
+
+    if (!isCorrect) {
+      currentState.lives = currentState.lives - 1;
+      totalAnswers.push({'isCorrect': false, 'time': 25, 'note': currentState.lives});
+      if (currentState.lives === 0) {
+        screenChange(countResultPlayer(calculateResult(totalAnswers)));
+      }
+      if (currentState.lives !== 0) {
+        screenChange(levelArtist(currentState, totalAnswers));
+      }
+    }
+  });
 
   return screenLevelGenre;
 };
-
