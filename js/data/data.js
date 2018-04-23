@@ -6,3 +6,9 @@ export const welcomeDate = {
       Ошибиться можно 3 раза.<br>
       Удачи!`
 };
+
+export const statistics = [
+  {points: 18, time: 30, note: 2},
+  {points: 17, time: 0, note: 1},
+  {points: 10, time: 2, note: 0},
+  {points: 20, time: 100, note: 2}];

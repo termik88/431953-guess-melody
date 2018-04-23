@@ -72,18 +72,18 @@ export default (data, totalAnswers) => {
     const isCorrect = answersButtonChecked.every((item) => item.value === correctAnswer.genre);
 
     if (isCorrect) {
-      totalAnswers[correctAnswer.level] = {isCorrect: true, time: 25, note: currentState.lives};
+      totalAnswers.push({isCorrect: true, time: 25, note: currentState.lives});
       screenChange(levelArtist(currentState, totalAnswers));
-      if (currentState.level === 5) {
-        screenChange(resultGood(currentState));
+      if (currentState.level === 3) {
+        screenChange(countResultPlayer(calculateResult(totalAnswers)));
       }
     }
 
     if (!isCorrect) {
       currentState.lives = currentState.lives - 1;
-      totalAnswers[correctAnswer.level] = {isCorrect: false, time: 25, note: currentState.lives};
+      totalAnswers.push({isCorrect: false, time: 25, note: currentState.lives});
       if (currentState.lives === 0) {
-        screenChange(resultBad());
+        screenChange(countResultPlayer(calculateResult(totalAnswers)));
       }
       if (currentState.lives !== 0) {
         screenChange(levelArtist(currentState, totalAnswers));
