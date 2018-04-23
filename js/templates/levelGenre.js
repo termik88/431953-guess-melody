@@ -2,9 +2,8 @@ import {getElementFromTemplate, screenChange, getCurrentAnswer, getRandomAnswers
 import header from "./header";
 import questions from "./questions";
 import levelArtist from './levelArtist';
-import resultGood from './resultGood';
-import resultBad from './resultBad';
-import resultIsOverTime from './resultIsOverTime';
+import calculateResult from '../calculateResult';
+import countResultPlayer from '../countResultPlayer';
 
 const variantsAnswers = (answerArr) => {
   let html = ``;
@@ -39,11 +38,10 @@ const template = (state, correctAnswer, answerArr) => {
             </section>`;
 };
 
-export default (data) => {
+export default (data, totalAnswers) => {
   const currentState = {
     level: ++data.level,
     lives: data.lives,
-    time: data.time,
     gameType: `genre`
   };
 
@@ -69,30 +67,26 @@ export default (data) => {
     });
   });
 
-
   resultButton.addEventListener(`click`, () => {
     const answersButtonChecked = [...answersButton].filter((item) => item.checked);
-    const isCorrectAnswers = answersButtonChecked.every((item) => item.value === correctAnswer.genre);
+    const isCorrect = answersButtonChecked.every((item) => item.value === correctAnswer.genre);
 
-    currentState.time = currentState.time - 25;
-    if (currentState.time <= 0) {
-      screenChange(resultIsOverTime());
-    }
-
-    if (isCorrectAnswers) {
-      screenChange(levelArtist(currentState));
-      if (currentState.level === 10) {
+    if (isCorrect) {
+      totalAnswers[correctAnswer.level] = {isCorrect: true, time: 25, note: currentState.lives};
+      screenChange(levelArtist(currentState, totalAnswers));
+      if (currentState.level === 5) {
         screenChange(resultGood(currentState));
       }
     }
 
-    if (!isCorrectAnswers) {
+    if (!isCorrect) {
       currentState.lives = currentState.lives - 1;
+      totalAnswers[correctAnswer.level] = {isCorrect: false, time: 25, note: currentState.lives};
       if (currentState.lives === 0) {
         screenChange(resultBad());
       }
       if (currentState.lives !== 0) {
-        screenChange(levelArtist(currentState));
+        screenChange(levelArtist(currentState, totalAnswers));
       }
     }
   });

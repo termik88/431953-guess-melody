@@ -5,9 +5,10 @@ import {welcomeDate} from '../data/data';
 export default () => {
   const initialState = {
     level: 0,
-    lives: 1,
-    time: 300
+    lives: 1
   };
+
+  let totalAnswers = [];
 
   const template = `<section class="main main--welcome">
                       <section class="logo" title="Угадай мелодию"><h1>${welcomeDate.titleGame}</h1></section>
@@ -21,7 +22,7 @@ export default () => {
   const screenWelcome = getElementFromTemplate(template);
 
   const playButton = screenWelcome.querySelector(`.main-play`);
-  playButton.addEventListener(`click`, () => screenChange(levelArtist(initialState)));
+  playButton.addEventListener(`click`, () => screenChange(levelArtist(initialState, totalAnswers)));
 
   return screenWelcome;
 };

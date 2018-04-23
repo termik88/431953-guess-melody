@@ -1,3 +1,8 @@
+import resultOverTime from './resultIsOverTime';
+import resultBad from './resultBad';
+import resultGood from "./resultGood";
+import calculateResult from '../calculateResult';
+
 export default (statistics, playerResult) => {
 
   const playerStatistics = Object.assign({}, playerResult, {current: true});
