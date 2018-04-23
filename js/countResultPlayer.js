@@ -10,10 +10,6 @@ export default (playerResult) => {
   const positionCurrentPlayer = generalStatistics.findIndex((item) => item.current) + 1;
   const successRate = (generalStatistics.length - positionCurrentPlayer) / generalStatistics.length * 100;
 
-/*  if (!playerStatistics.time) {
-    return resultOverTime();
-  }*/
-
   if (300 - playerStatistics.time <= 0) {
     return resultOverTime();
   }

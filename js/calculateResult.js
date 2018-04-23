@@ -1,12 +1,11 @@
 export default (answers) => {
 
   const POINTS = {
-/*    LOSS: -1,*/
     FAST_ANSWER: 2,
     SLOW_ANSWER: 1,
     INCORRECT_ANSWER: -2
   };
-  /*const COUNT_ANSWER = 3;*/
+
   const TIME_FAST_ANSWER = 30;
   let fastAnswerCount = 0;
 
@@ -20,11 +19,7 @@ export default (answers) => {
     }
     return POINTS.SLOW_ANSWER;
   };
-/*
-  if (answers.length < COUNT_ANSWER) {
-    return POINTS.LOSS;
-  }
-*/
+
   return {
     'result': answers.reduce((result, answer) => result + getPoints(answer), 0),
     'time': answers.reduce((result, answer) => result + answer.time, 0),
