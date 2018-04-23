@@ -41,5 +41,19 @@ export default [
     image: `https://f4.bcbits.com/img/0004181452_10.jpg`,
     src: `https://www.youtube.com/audiolibrary_download?vid=bcbe5be936a32fb1`,
     genre: `Electronic`
+  },
+  {
+    artist: `bla1`,
+    name: `song bla1`,
+    image: `https://f4.bcbits.com/img/0004181452_0.jpg`,
+    src: `https://www.youtube.com/audiolibrary_download?vid=bcbe5be36a32fb1`,
+    genre: `Electronic`
+  },
+  {
+    artist: `bla2`,
+    name: `song bla2`,
+    image: `https://f4.bcbits.com/img/0004181452_0.jpg`,
+    src: `https://www.youtube.com/audiolibrary_download?vid=bcbe5be36a32fb1`,
+    genre: `Electronic`
   }
 ];

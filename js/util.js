@@ -21,21 +21,26 @@ export const getCurrentAnswer = (arrAnswers) => {
   return currentAnswer;
 };
 
-export const getRandomAnswers = (questions) => {
+export const getRandomAnswers = (questions, gameType) => {
+  let answersArrLength = gameType === `genre` ? 4 : 3;
   let answers = [];
-  while (answers.length < 3) {
+
+  while (answers.length < answersArrLength) {
     let randomAnswer = questions[getRandomIndex(questions.length)];
     let bred = answers.some((item) => {
-      for (let key in item) {
-        if (item[key] === randomAnswer[key]) {
-          return true;
-        }
+      if (item.artist === randomAnswer.artist) {
+        return true;
+      }
+      if (item.name === randomAnswer.name) {
+        return true;
       }
       return false;
     });
+
     if (!bred) {
       answers.push(randomAnswer);
     }
+
   }
   return answers;
 };
