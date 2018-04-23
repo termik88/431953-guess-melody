@@ -42,7 +42,7 @@ const template = (state, correctAnswer, answerArr) => {
 };
 
 export default (data, totalAnswers) => {
-  const currentState = {
+  let currentState = {
     level: ++data.level,
     lives: data.lives,
     gameType: `artist`
@@ -60,16 +60,16 @@ export default (data, totalAnswers) => {
       const isCorrect = evt.currentTarget.parentNode.querySelector(`input`).value === `val-true`;
 
       if (isCorrect) {
-        totalAnswers.push({isCorrect: true, time: 25, note: currentState.lives});
-        screenChange(levelGenre(currentState, totalAnswers));
-        if (currentState.level === 3) {
+        totalAnswers.push({'isCorrect': true, 'time': 25, 'note': currentState.lives});
+        if (currentState.level === 10) {
           screenChange(countResultPlayer(calculateResult(totalAnswers)));
         }
+        screenChange(levelGenre(currentState, totalAnswers));
       }
 
       if (!isCorrect) {
         currentState.lives = currentState.lives - 1;
-        totalAnswers.push({isCorrect: false, time: 25, note: currentState.lives});
+        totalAnswers.push({'isCorrect': false, 'time': 25, 'note': currentState.lives});
         if (currentState.lives === 0) {
           screenChange(countResultPlayer(calculateResult(totalAnswers)));
         }

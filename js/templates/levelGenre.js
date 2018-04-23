@@ -39,7 +39,7 @@ const template = (state, correctAnswer, answerArr) => {
 };
 
 export default (data, totalAnswers) => {
-  const currentState = {
+  let currentState = {
     level: ++data.level,
     lives: data.lives,
     gameType: `genre`
@@ -72,16 +72,17 @@ export default (data, totalAnswers) => {
     const isCorrect = answersButtonChecked.every((item) => item.value === correctAnswer.genre);
 
     if (isCorrect) {
-      totalAnswers.push({isCorrect: true, time: 25, note: currentState.lives});
-      screenChange(levelArtist(currentState, totalAnswers));
-      if (currentState.level === 3) {
+      totalAnswers.push({'isCorrect': true, 'time': 25, 'note': currentState.lives});
+      if (currentState.level === 10) {
         screenChange(countResultPlayer(calculateResult(totalAnswers)));
+      } else {
+        screenChange(levelArtist(currentState, totalAnswers));
       }
     }
 
     if (!isCorrect) {
       currentState.lives = currentState.lives - 1;
-      totalAnswers.push({isCorrect: false, time: 25, note: currentState.lives});
+      totalAnswers.push({'isCorrect': false, 'time': 25, 'note': currentState.lives});
       if (currentState.lives === 0) {
         screenChange(countResultPlayer(calculateResult(totalAnswers)));
       }
@@ -93,4 +94,3 @@ export default (data, totalAnswers) => {
 
   return screenLevelGenre;
 };
-

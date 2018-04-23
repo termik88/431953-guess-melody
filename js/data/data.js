@@ -8,7 +8,7 @@ export const welcomeDate = {
 };
 
 export const statistics = [
-  {points: 18, time: 30, note: 2},
-  {points: 17, time: 0, note: 1},
-  {points: 10, time: 2, note: 0},
-  {points: 20, time: 100, note: 2}];
+  {result: 18, time: 30, note: 2},
+  {result: 17, time: 0, note: 1},
+  {result: 10, time: 2, note: 0},
+  {result: 20, time: 100, note: 2}];

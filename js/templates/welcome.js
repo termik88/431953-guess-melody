@@ -5,7 +5,7 @@ import {welcomeDate} from '../data/data';
 export default () => {
   const initialState = {
     level: 0,
-    lives: 1
+    lives: 3
   };
 
   let totalAnswers = [];
