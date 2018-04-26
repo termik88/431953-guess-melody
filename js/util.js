@@ -1,4 +1,4 @@
-export const screenChange = (screenElement) => {
+export const changeView = (screenElement) => {
   const layout = document.querySelector(`.main`);
   layout.innerHTML = ``;
   layout.appendChild(screenElement);

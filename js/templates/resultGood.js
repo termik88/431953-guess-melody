@@ -1,5 +1,5 @@
 import {getElementFromTemplate, screenChange} from '../util';
-import welcome from "./welcome";
+import welcome from "../view/welcome-view";
 
 const template = (data) => {
   return `<section class="main main--result">

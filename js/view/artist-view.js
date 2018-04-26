@@ -1,7 +1,7 @@
 import {getElementFromTemplate, screenChange, getCurrentAnswer, getRandomAnswers} from '../util';
-import header from './header';
-import questions from './questions';
-import levelGenre from './levelGenre';
+import header from '../templates/header';
+import questions from '../templates/questions';
+import levelGenre from '../templates/levelGenre';
 import calculateResult from '../calculateResult';
 import countResultPlayer from '../countResultPlayer';
 
