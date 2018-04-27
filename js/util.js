@@ -14,7 +14,7 @@ export const getRandomIndex = (length) => {
   return Math.trunc(Math.random() * (length));
 };
 
-export const getCurrentAnswer = (arrAnswers) => {
+export const getCorrectAnswer = (arrAnswers) => {
   const currentAnswer = arrAnswers[getRandomIndex(arrAnswers.length)];
   currentAnswer.current = true;
 

@@ -1,25 +1,25 @@
 import {changeView} from "../util";
-import ArtistView from '../view/artist-view';
-import genreScreen from './genre-screen';
+import GenreView from '../view/genre-view';
+import artistScreen from '../screen/artist-screen';
 
 export default (data) => {
-  data.answers.setType = `artist`;
+  data.answers.setType = `genre`;
 
-  const artistScreen = new ArtistView(data);
+  const genreScreen = new GenreView(data);
 
-  artistScreen.onAnswerClick = (isCorrect) => {
+  genreScreen.onAnswerClick = (isCorrect) => {
     if (!isCorrect) {
       data.state.lives = data.state.lives - 1;
     }
 
     data.totalAnswers.push({'isCorrect': isCorrect, 'time': 25, 'note': data.state.lives});
-/*
+
     if (data.state.lives === 0) {
       screenChange(countResultPlayer(calculateResult(data.totalAnswers)));
     }
-*/
-    genreScreen(data);
+
+    artistScreen(data);
   };
 
-  changeView(artistScreen.element);
+  changeView(genreScreen.element);
 };

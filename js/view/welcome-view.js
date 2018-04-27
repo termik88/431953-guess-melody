@@ -3,7 +3,7 @@ import AbstractView from '../abstractView';
 export default class WelcomeView extends AbstractView {
   constructor(data) {
     super();
-    this._data = data.welcomeDate;
+    this._data = data.welcomeData;
   }
 
   get template() {
@@ -18,10 +18,14 @@ export default class WelcomeView extends AbstractView {
   }
 
   bind() {
-    this.element.querySelector(`.main-play`).onclick = (evt) => {
+    this.element.querySelector(`.main-play`).addEventListener(`click`, (evt) => {
       evt.preventDefault();
 
       this.onPlayClick();
-    };
+    });
+  }
+
+  onPlayClick() {
+
   }
 }

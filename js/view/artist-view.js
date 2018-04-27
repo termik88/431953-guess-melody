@@ -1,5 +1,5 @@
 import AbstractView from '../abstractView';
-import header from "../templates/header";
+import headerView from "./header-view";
 
 export default class ArtistView extends AbstractView {
   constructor(data) {
@@ -24,20 +24,20 @@ export default class ArtistView extends AbstractView {
     };
 
     return `<section class="main main--level main--level-artist">
-              ${header(state)}
+              ${headerView(this._data.state)}
               <div class="main-wrap">
                 <h2 class="title main-title">Отгодайте исполнителя</h2>
                 <div class="player-wrapper">
                   <div class="player">
-                    <audio src="${correctAnswer.src}"></audio>
+                    <audio src="${this._data.answers.correct.src}"></audio>
                     <button class="player-control player-control--pause"></button>
                     <div class="player-track">
-                      <span class="player-status">${correctAnswer.artist}</span>
+                      <span class="player-status">${this._data.answers.correct.artist}</span>
                     </div>
                   </div>
                 </div>
                 <form class="main-list">
-                  ${variantsAnswers(answerArr)}
+                  ${variantsAnswers(this._data.answers.variants)};
                 </form>
               </div>
             </section>`;
@@ -45,13 +45,15 @@ export default class ArtistView extends AbstractView {
 
   bind() {
     [...this.element.querySelectorAll(`.main-answer`)].forEach((answer) => {
-      answer.onclick = (evt) => {
+      answer.addEventListener(`click`, (evt) => {
         evt.preventDefault();
 
-        this.onAnswerClick();
-      };
+        this.onAnswerClick(evt.currentTarget.parentNode.querySelector(`input`).value === `val-true`);
+      });
     });
+  }
 
+  onAnswerClick() {
 
   }
 }

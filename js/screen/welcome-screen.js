@@ -6,7 +6,7 @@ export default (data) => {
   const welcomeScreen = new WelcomeView(data);
 
   welcomeScreen.onPlayClick = () => {
-    changeView(artistScreen(data));
+    artistScreen(data);
   };
 
   changeView(welcomeScreen.element);

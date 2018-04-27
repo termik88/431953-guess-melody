@@ -1,6 +1,6 @@
 import {getElementFromTemplate, screenChange, getCurrentAnswer, getRandomAnswers} from '../util';
-import header from "./header";
-import questions from "./questions";
+import header from "../view/header-view";
+import questions from "../data/questions";
 import levelArtist from '../view/artist-view';
 import calculateResult from '../calculateResult';
 import countResultPlayer from '../countResultPlayer';
