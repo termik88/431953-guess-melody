@@ -1,7 +1,4 @@
-import WelcomeView from './view/welcome-view';
-import {changeView} from './util';
-import {welcomeDate} from "./data/data";
+import welcomeScreen from './screen/welcome-screen';
+import data from './data/data';
 
-const welcome = new WelcomeView(welcomeDate);
-
-changeView(welcome.element);
+welcomeScreen(data);

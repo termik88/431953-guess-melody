@@ -1,10 +1,9 @@
 import AbstractView from '../abstractView';
-import {changeView} from "../util";
 
 export default class WelcomeView extends AbstractView {
   constructor(data) {
     super();
-    this._data = data;
+    this._data = data.welcomeDate;
   }
 
   get template() {
@@ -18,7 +17,11 @@ export default class WelcomeView extends AbstractView {
                     </section>`;
   }
 
-  bind(element) {
-    element.querySelector(`.main-play`).addEventListener(`click`, () => alert(`OK~~~~`)/*changeView(levelArtist(initialState, totalAnswers))*/);
+  bind() {
+    this.element.querySelector(`.main-play`).onclick = (evt) => {
+      evt.preventDefault();
+
+      this.onPlayClick();
+    };
   }
 }
