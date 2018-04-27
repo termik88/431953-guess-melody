@@ -3,11 +3,11 @@ import WelcomeView from '../view/welcome-view';
 import artistScreen from './artist-screen';
 
 export default (data) => {
-  const welcome = new WelcomeView(data);
+  const welcomeScreen = new WelcomeView(data);
 
-  welcome.onPlayClick = () => {
+  welcomeScreen.onPlayClick = () => {
     changeView(artistScreen(data));
   };
 
-  changeView(welcome.element);
+  changeView(welcomeScreen.element);
 };

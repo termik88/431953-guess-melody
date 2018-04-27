@@ -8,6 +8,21 @@ export default class ArtistView extends AbstractView {
   }
 
   get template() {
+    const variantsAnswers = (answerArr) => {
+      let html = ``;
+      answerArr.forEach((item, index) => {
+        html += `<div class="main-answer-wrapper">
+                      <input class="main-answer-r" type="radio" id="answer-${index}" name="answer" value="val-${item.current}"/>
+                      <label class="main-answer" for="answer-${index}">
+                        <img class="main-answer-preview" src=${item.image}
+                             alt="${item.artist}" width="134" height="134">
+                        ${item.artist}
+                      </label>
+                    </div>`;
+      });
+      return html;
+    };
+
     return `<section class="main main--level main--level-artist">
               ${header(state)}
               <div class="main-wrap">
