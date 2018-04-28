@@ -1,9 +1,15 @@
 import {getCorrectAnswer, getRandomAnswers} from '../util';
 import questions from './questions';
-
-const state = {
+const initialState = {
   lives: 3,
-  time: 300
+  time: 300,
+  maxNumberGames: 10
+};
+
+let state = {
+  lives: ``,
+  time: ``,
+  maxNumberGames: ``
 };
 
 let totalAnswers = [];
@@ -12,8 +18,8 @@ const welcomeData = {
   titleGame: `Угадай мелодию`,
   titleButton: `Начать игру`,
   titleScreen: `Правила игры`,
-  text: `Правила просты&nbsp;— за&nbsp;${state.time / 60} минут ответить на все вопросы.<br>
-    Ошибиться можно ${state.lives} раза.<br>
+  text: `Правила просты&nbsp;— за&nbsp;${initialState.time / 60} минут ответить на все вопросы.<br>
+    Ошибиться можно ${initialState.lives} раза.<br>
     Удачи!`
 };
 
@@ -34,6 +40,7 @@ const statistics = [
   {result: 20, time: 100, note: 2}];
 
 export default {
+  initialState,
   state,
   totalAnswers,
   welcomeData,

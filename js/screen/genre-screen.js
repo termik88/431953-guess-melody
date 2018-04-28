@@ -1,6 +1,7 @@
 import {changeView} from "../util";
 import GenreView from '../view/genre-view';
 import artistScreen from './artist-screen';
+import resultScreen from './result-screen';
 
 export default (data) => {
   data.answers.setType = `genre`;
@@ -13,12 +14,12 @@ export default (data) => {
     }
 
     data.totalAnswers.push({'isCorrect': isCorrect, 'time': 25, 'note': data.state.lives});
-/*
-    if (data.state.lives === 0) {
-      screenChange(countResultPlayer(calculateResult(data.totalAnswers)));
+
+    if (data.state.lives === 0 || data.totalAnswers.length === data.state.maxNumberGames) {
+      resultScreen(data);
+    } else {
+      artistScreen(data);
     }
-*/
-    artistScreen(data);
   };
 
   changeView(genreScreen.element);
