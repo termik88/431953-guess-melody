@@ -45,6 +45,7 @@ export default class GenreView extends AbstractView {
     const answersButton = this.element.querySelectorAll(`input[name=answer]`);
     this.element.querySelector(`.genre`).reset();
     resultButton.setAttribute(`disabled`, `true`);
+    let isCorrect;
 
     [...answersButton].forEach((answerButton) => {
       answerButton.addEventListener(`change`, () => {
@@ -59,10 +60,16 @@ export default class GenreView extends AbstractView {
     });
 
     resultButton.addEventListener(`click`, (evt) => {
+      const numberAnswers = [...answersButton].filter((item) => item.value === this._data.answers.correct.genre);
       const answersButtonChecked = [...answersButton].filter((item) => item.checked);
+      if (numberAnswers.length === answersButtonChecked.length) {
+        isCorrect = answersButtonChecked.every((item) => item.value === this._data.answers.correct.genre);
+      } else {
+        isCorrect = false;
+      }
       evt.preventDefault();
 
-      this.onAnswerClick(answersButtonChecked.every((item) => item.value === this._data.answers.correct.genre));
+      this.onAnswerClick(isCorrect);
     });
   }
 
