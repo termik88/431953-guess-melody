@@ -1,4 +1,4 @@
-import welcome from './templates/welcome';
-import {screenChange} from './util';
+import welcomeScreen from './screen/welcome-screen';
+import data from './data/data';
 
-screenChange(welcome());
+welcomeScreen(data);
