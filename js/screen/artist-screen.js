@@ -6,9 +6,12 @@ import resultScreen from "./result-screen";
 export default (data) => {
   data.answers.setType = `artist`;
 
-  const artistScreen = new ArtistView(data);
+  const view = new ArtistView(data);
 
-  artistScreen.onAnswerClick = (isCorrect) => {
+  view.onAnswerClick = (evt) => {
+    evt.preventDefault();
+    const isCorrect = (evt.currentTarget.parentNode.querySelector(`input`).value === `val-true`);
+
     if (!isCorrect) {
       data.state.lives = data.state.lives - 1;
     }
@@ -22,5 +25,19 @@ export default (data) => {
     }
   };
 
-  changeView(artistScreen.element);
+  view.onPlayClick = (evt) => {
+    evt.preventDefault();
+    const element = evt.currentTarget;
+    const audio = evt.currentTarget.parentNode.querySelector(`audio`);
+    if (element.classList.contains(`player-control--pause`)) {
+      element.classList.remove(`player-control--pause`);
+      audio.pause();
+    } else {
+      element.classList.add(`player-control--pause`);
+      audio.play();
+    }
+  };
+
+  view.controlPlayer();
+  changeView(view.element);
 };

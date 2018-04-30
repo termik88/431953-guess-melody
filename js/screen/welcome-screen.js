@@ -7,11 +7,12 @@ export default (data) => {
   data.state.time = data.initialState.time;
   data.state.maxNumberGames = data.initialState.maxNumberGames;
 
-  const welcomeScreen = new WelcomeView(data);
+  const view = new WelcomeView(data);
 
-  welcomeScreen.onPlayClick = () => {
+  view.onPlayClick = (evt) => {
+    evt.preventDefault();
     artistScreen(data);
   };
 
-  changeView(welcomeScreen.element);
+  changeView(view.element);
 };

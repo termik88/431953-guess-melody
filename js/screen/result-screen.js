@@ -4,12 +4,9 @@ import calculateResult from '../calculateResult';
 import countResultPlayer from '../countResultPlayer';
 
 export default (data) => {
-  const result = calculateResult(data.totalAnswers);
-  /*data.state.lives = 3;
-  data.state.time = 300;
-  data.totalAnswers = [];*/
+  const view = calculateResult(data.totalAnswers);
 
-  const resultScreen = countResultPlayer(result);
+  const resultScreen = countResultPlayer(view);
   changeView(resultScreen.element);
 
   resultScreen.onClick = () => {

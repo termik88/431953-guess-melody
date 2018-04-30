@@ -8,21 +8,6 @@ export default class ArtistView extends AbstractView {
   }
 
   get template() {
-    const variantsAnswers = (answerArr) => {
-      let html = ``;
-      answerArr.forEach((item, index) => {
-        html += `<div class="main-answer-wrapper">
-                      <input class="main-answer-r" type="radio" id="answer-${index}" name="answer" value="val-${item.current}"/>
-                      <label class="main-answer" for="answer-${index}">
-                        <img class="main-answer-preview" src=${item.image}
-                             alt="${item.artist}" width="134" height="134">
-                        ${item.artist}
-                      </label>
-                    </div>`;
-      });
-      return html;
-    };
-
     return `<section class="main main--level main--level-artist">
               ${headerView(this._data.state)}
               <div class="main-wrap">
@@ -37,23 +22,35 @@ export default class ArtistView extends AbstractView {
                   </div>
                 </div>
                 <form class="main-list">
-                  ${variantsAnswers(this._data.answers.variants)};
+                  ${this.getVariantsAnswers(this._data.answers.variants)};
                 </form>
               </div>
             </section>`;
   }
 
+  getVariantsAnswers(answerArr) {
+    return answerArr.map((answer, index) => `<div class="main-answer-wrapper">
+                                            <input class="main-answer-r" type="radio" id="answer-${index}" name="answer" value="val-${answer.current}"/>
+                                            <label class="main-answer" for="answer-${index}">
+                                              <img class="main-answer-preview" src=${answer.image}
+                                                   alt="${answer.artist}" width="134" height="134">
+                                              ${answer.artist}
+                                            </label>
+                                          </div>`).join(``);
+  }
+
   bind() {
     [...this.element.querySelectorAll(`.main-answer`)].forEach((answer) => {
-      answer.addEventListener(`click`, (evt) => {
-        evt.preventDefault();
-
-        this.onAnswerClick(evt.currentTarget.parentNode.querySelector(`input`).value === `val-true`);
-      });
+      answer.addEventListener(`click`, this.onAnswerClick);
     });
   }
 
-  onAnswerClick() {
-
+  controlPlayer() {
+    const playerButton = this.element.querySelector(`.player-control`);
+    playerButton.addEventListener(`click`, (evt) => this.onPlayClick(evt));
   }
+
+  onAnswerClick() {}
+
+  onPlayClick() {}
 }
