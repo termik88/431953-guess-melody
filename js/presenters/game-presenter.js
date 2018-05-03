@@ -6,8 +6,17 @@ export default class GamePresenter {
   constructor(model) {
     this.model = model;
     this.question = model.getQuestion;
-    this.view = new ArtistView(this.model);
+    this.view = (this.question.type === `artist` ? new ArtistView(this.model) : new GenreView(this.model));
+    this.view.onAnswerClick = (evt) => {
+      const element = evt.target;
+
+      if (element.tagNames.toLowerCase() === `img`) {
+        Application.showWelcome();
+      }
+    };
+
   }
+
 
 
 

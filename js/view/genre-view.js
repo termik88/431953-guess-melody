@@ -2,18 +2,19 @@ import AbstractView from '../abstractView';
 import headerView from "./header-view";
 
 export default class GenreView extends AbstractView {
-  constructor(data) {
+  constructor(model) {
     super();
-    this._data = data;
+    this.model = model;
+    this.question = model.getQuestion;
   }
 
   get template() {
     return `<section class="main main--level main--level-genre">
-              ${headerView(this._data.state)}                  
+              ${headerView(this.model.getGameSettings)}           
               <div class="main-wrap">
-                <h2 class="title">Выберите ${this._data.answers.correct.genre} треки</h2>
+                <h2 class="title">${this.question.question}</h2>
                 <form class="genre">
-                  ${this.getVariantsAnswers(this._data.answers.variants)}
+                  ${this.getVariantsAnswers(this.question.answers)}
                   <button class="genre-answer-send" type="submit">Ответить</button>
                 </form>
               </div>

@@ -6,14 +6,20 @@ export default class GameModel {
   constructor() {
     this._gameSetting = GAME_SETTINGS;
     this._questions = questions;
+    this._question = this.renderQuestion();
   }
 
-  get gameSettings() {
-    return this._gameSetting;
+  renderQuestion() {
+    return this._questions[getRandomIndex(this._questions.length)];
   }
 
   get getQuestion() {
-    return this._questions[getRandomIndex(this._questions)];
+    return this._question;
   }
+
+  get getGameSettings() {
+    return this._gameSetting;
+  }
+
 }
 
