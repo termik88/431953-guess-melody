@@ -5,19 +5,19 @@ export default [
     "genre": "rnb",
     "answers": [
       {
-        "src": "/path/to/file.mp3",
+        "src": `https://www.youtube.com/audiolibrary_download?vid=91624fdc22fc54ed`,
         "genre": "rnb"
       },
       {
-        "src": "/path/to/file.mp3",
+        "src": `https://www.youtube.com/audiolibrary_download?vid=91624fdc22fc54ed`,
         "genre": "blues"
       },
       {
-        "src": "/path/to/file.mp3",
+        "src": `https://www.youtube.com/audiolibrary_download?vid=91624fdc22fc54ed`,
         "genre": "rock"
       },
       {
-        "src": "/path/to/file.mp3",
+        "src": `https://www.youtube.com/audiolibrary_download?vid=91624fdc22fc54ed`,
         "genre": "rnb"
       }
     ]
@@ -28,19 +28,19 @@ export default [
     "genre": "blues",
     "answers": [
       {
-        "src": "/path/to/file.mp3",
+        "src": `https://www.youtube.com/audiolibrary_download?vid=91624fdc22fc54ed`,
         "genre": "blues"
       },
       {
-        "src": "/path/to/file.mp3",
+        "src": `https://www.youtube.com/audiolibrary_download?vid=91624fdc22fc54ed`,
         "genre": "pop"
       },
       {
-        "src": "/path/to/file.mp3",
+        "src": `https://www.youtube.com/audiolibrary_download?vid=91624fdc22fc54ed`,
         "genre": "rock"
       },
       {
-        "src": "/path/to/file.mp3",
+        "src": `https://www.youtube.com/audiolibrary_download?vid=91624fdc22fc54ed`,
         "genre": "rnb"
       }
     ]
@@ -48,7 +48,7 @@ export default [
   {
     "type": "artist",
     "question": "Кто исполняет эту песню?",
-    "src": "path/to/file.mp3",
+    "src": `https://www.youtube.com/audiolibrary_download?vid=dc3b4dc549becd6b`,
     "answers": [
       {
         "image": {

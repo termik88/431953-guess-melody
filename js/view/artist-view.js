@@ -1,27 +1,22 @@
 import AbstractView from '../abstractView';
-import headerView from "./header-view";
+import HeaderView from './header-view';
+import PlayerView from './player-view';
 
 export default class ArtistView extends AbstractView {
   constructor(model) {
     super();
     this.model = model;
     this.question = model.getQuestion;
+    this.header = new HeaderView(this.model.getGameSettings);
+    this.player = new PlayerView(this.question.src);
   }
 
   get template() {
     return `<section class="main main--level main--level-artist">
-              ${headerView(this.model.getGameSettings)}
+              ${this.header.template}
               <div class="main-wrap">
                 <h2 class="title main-title">${this.model.question}</h2>
-                <div class="player-wrapper">
-                  <div class="player">
-                    <audio src="${this.question.src}"></audio>
-                    <button class="player-control player-control--pause"></button>
-                    <div class="player-track">
-                      <span class="player-status"></span>
-                    </div>
-                  </div>
-                </div>
+                ${this.player.template}
                 <form class="main-list">
                   ${this.getVariantsAnswers(this.question.answers)};
                 </form>
@@ -45,8 +40,7 @@ export default class ArtistView extends AbstractView {
   }
 
   controlPlayer() {
-    const playerButton = this.element.querySelector(`.player-control`);
-    playerButton.addEventListener(`click`, (evt) => this.onPlayClick(evt));
+    this.element.querySelector(`.player-control`).addEventListener(`click`, (evt) => this.onPlayClick(evt));
   }
 
   onAnswerClick() {}

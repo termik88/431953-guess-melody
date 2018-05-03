@@ -1,16 +1,18 @@
 import AbstractView from '../abstractView';
-import headerView from "./header-view";
+import HeaderView from "./header-view";
+import PlayerView from "./player-view";
 
 export default class GenreView extends AbstractView {
   constructor(model) {
     super();
     this.model = model;
     this.question = model.getQuestion;
+    this.header = new HeaderView(this.model.getGameSettings);
   }
 
   get template() {
     return `<section class="main main--level main--level-genre">
-              ${headerView(this.model.getGameSettings)}           
+              ${this.header.template}      
               <div class="main-wrap">
                 <h2 class="title">${this.question.question}</h2>
                 <form class="genre">
@@ -23,18 +25,10 @@ export default class GenreView extends AbstractView {
 
   getVariantsAnswers(answerArr) {
     return answerArr.map((answer, i) => `<div class="genre-answer">
-                                        <div class="player-wrapper">
-                                          <div class="player">
-                                            <audio src="${answer.src}"></audio>
-                                            <button class="player-control player-control--pause"></button>
-                                            <div class="player-track">
-                                              <span class="player-status">${answer.genre}"</span>
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <input type="checkbox" name="answer" value="${answer.genre}" id="a-${i}">
-                                        <label class="genre-answer-check" for="a-${i}"></label>
-                                      </div>`).join(``);
+                                          ${(new PlayerView(answer.src)).template}
+                                          <input type="checkbox" name="answer" value="${answer.genre}" id="a-${i}">
+                                          <label class="genre-answer-check" for="a-${i}"></label>
+                                        </div>`).join(``);
   }
 
   bind() {

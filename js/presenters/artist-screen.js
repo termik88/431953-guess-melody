@@ -2,7 +2,7 @@ import {changeView} from "../util";
 import ArtistView from '../view/artist-view';
 import genreScreen from './genre-screen';
 import resultScreen from "./result-screen";
-
+/*
 export default (data) => {
   data.answers.setType = `artist`;
 
@@ -41,3 +41,4 @@ export default (data) => {
   view.controlPlayer();
   changeView(view.element);
 };
+*/
