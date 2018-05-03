@@ -1,7 +1,7 @@
-export const changeView = (screenElement) => {
+export const changeView = (element) => {
   const layout = document.querySelector(`.main`);
   layout.innerHTML = ``;
-  layout.appendChild(screenElement);
+  layout.appendChild(element);
 };
 
 export const getElementFromTemplate = (stringTemplate) => {

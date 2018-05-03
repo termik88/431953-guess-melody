@@ -1,5 +1,5 @@
 import {changeView} from "../util";
-import welcomeScreen from './welcome-screen';
+import welcomeScreen from './welcome-presenter';
 import calculateResult from '../calculateResult';
 import countResultPlayer from '../countResultPlayer';
 
