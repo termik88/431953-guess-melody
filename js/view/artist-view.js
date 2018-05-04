@@ -1,28 +1,24 @@
 import AbstractView from '../abstractView';
-import headerView from "./header-view";
+import HeaderView from './header-view';
+import PlayerView from './player-view';
 
 export default class ArtistView extends AbstractView {
-  constructor(data) {
+  constructor(model) {
     super();
-    this._data = data;
+    this.model = model;
+    this.question = model.getQuestion;
+    this.header = new HeaderView(this.model);
+    this.player = new PlayerView(this.question.src);
   }
 
   get template() {
     return `<section class="main main--level main--level-artist">
-              ${headerView(this._data.state)}
+              ${this.header.template}
               <div class="main-wrap">
-                <h2 class="title main-title">Отгодайте исполнителя</h2>
-                <div class="player-wrapper">
-                  <div class="player">
-                    <audio src="${this._data.answers.correct.src}"></audio>
-                    <button class="player-control player-control--pause"></button>
-                    <div class="player-track">
-                      <span class="player-status">${this._data.answers.correct.artist}</span>
-                    </div>
-                  </div>
-                </div>
+                <h2 class="title main-title">${this.model.question}</h2>
+                ${this.player.template}
                 <form class="main-list">
-                  ${this.getVariantsAnswers(this._data.answers.variants)};
+                  ${this.getVariantsAnswers(this.question.answers)};
                 </form>
               </div>
             </section>`;
@@ -30,27 +26,21 @@ export default class ArtistView extends AbstractView {
 
   getVariantsAnswers(answerArr) {
     return answerArr.map((answer, index) => `<div class="main-answer-wrapper">
-                                            <input class="main-answer-r" type="radio" id="answer-${index}" name="answer" value="val-${answer.current}"/>
-                                            <label class="main-answer" for="answer-${index}">
-                                              <img class="main-answer-preview" src=${answer.image}
-                                                   alt="${answer.artist}" width="134" height="134">
-                                              ${answer.artist}
-                                            </label>
-                                          </div>`).join(``);
+                                              <input class="main-answer-r" type="radio" id="answer-${index}" name="answer" value="val-${answer.isCorrect}"/>
+                                              <label class="main-answer" for="answer-${index}">
+                                                <img class="main-answer-preview" src=${answer.image.url}
+                                                     alt="${answer.title}" width="${answer.image.width}" height="${answer.image.height}">
+                                                ${answer.title}
+                                              </label>
+                                            </div>`).join(``);
   }
 
   bind() {
-    [...this.element.querySelectorAll(`.main-answer`)].forEach((answer) => {
-      answer.addEventListener(`click`, this.onAnswerClick);
-    });
+    this.element.querySelector(`.main-list`).addEventListener(`click`, (evt) => this.onAnswerClickArtist(evt));
+    this.element.querySelector(`.main-wrap`).addEventListener(`click`, (evt) => this.onPlayClick(evt));
   }
 
-  controlPlayer() {
-    const playerButton = this.element.querySelector(`.player-control`);
-    playerButton.addEventListener(`click`, (evt) => this.onPlayClick(evt));
-  }
-
-  onAnswerClick() {}
+  onAnswerClickArtist() {}
 
   onPlayClick() {}
 }

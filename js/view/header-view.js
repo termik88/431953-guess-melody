@@ -1,10 +1,19 @@
-export default (data) => {
-  return `<svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
+import AbstractView from "../abstractView";
+
+export default class HeaderView extends AbstractView {
+  constructor(model) {
+    super();
+    this.model = model;
+    this.lives = this.model.getGameSettings;
+  }
+
+  get template() {
+    return `<svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
           <circle
             cx="390" cy="390" r="370"
             class="timer-line"
-            style="filter: url(../templates#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center"></circle>
-      
+            style="filter: url(#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center"></circle>
+
           <div class="timer-value" xmlns="http://www.w3.org/1999/xhtml">
             <span class="timer-value-mins">05</span><!--
             --><span class="timer-value-dots">:</span><!--
@@ -12,6 +21,7 @@ export default (data) => {
           </div>
         </svg>
         <div class="main-mistakes">
-          ${new Array(data.lives).fill(`<img class="main-mistake" src="img/wrong-answer.png" width="35" height="49">`).join(``)}
+          ${new Array(this.lives.numberLives).fill(`<img class="main-mistake" src="img/wrong-answer.png" width="35" height="49">`).join(``)}
         </div>`;
-};
+  }
+}

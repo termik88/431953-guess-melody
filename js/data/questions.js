@@ -1,59 +1,82 @@
-// Music from https://www.youtube.com/audiolibrary/music?feature=blog
 export default [
   {
-    artist: `Kevin MacLeod`,
-    name: `Long Stroll`,
-    image: `https://yt3.ggpht.com/-fkDeGauT7Co/AAAAAAAAAAI/AAAAAAAAAAA/dkF5ZKkrxRo/s900-c-k-no-mo-rj-c0xffffff/photo.jpg`,
-    src: `https://www.youtube.com/audiolibrary_download?vid=91624fdc22fc54ed`,
-    genre: `Jazz`
+    "type": `genre`,
+    "question": `Выберите все песни в жанре R'n'B`,
+    "genre": `rnb`,
+    "answers": [
+      {
+        "src": `https://www.youtube.com/audiolibrary_download?vid=91624fdc22fc54ed`,
+        "genre": `rnb`
+      },
+      {
+        "src": `https://www.youtube.com/audiolibrary_download?vid=91624fdc22fc54ed`,
+        "genre": `blues`
+      },
+      {
+        "src": `https://www.youtube.com/audiolibrary_download?vid=91624fdc22fc54ed`,
+        "genre": `rock`
+      },
+      {
+        "src": `https://www.youtube.com/audiolibrary_download?vid=91624fdc22fc54ed`,
+        "genre": `rnb`
+      }
+    ]
   },
   {
-    artist: `Jingle Punks`,
-    name: `In the Land of Rhinoplasty`,
-    image: `https://i.vimeocdn.com/portrait/992615_300x300`,
-    src: `https://www.youtube.com/audiolibrary_download?vid=dc3b4dc549becd6b`,
-    genre: `Rock`
+    "type": `genre`,
+    "question": `Выберите все блюзовые песни`,
+    "genre": `blues`,
+    "answers": [
+      {
+        "src": `https://www.youtube.com/audiolibrary_download?vid=91624fdc22fc54ed`,
+        "genre": `blues`
+      },
+      {
+        "src": `https://www.youtube.com/audiolibrary_download?vid=91624fdc22fc54ed`,
+        "genre": `pop`
+      },
+      {
+        "src": `https://www.youtube.com/audiolibrary_download?vid=91624fdc22fc54ed`,
+        "genre": `rock`
+      },
+      {
+        "src": `https://www.youtube.com/audiolibrary_download?vid=91624fdc22fc54ed`,
+        "genre": `rnb`
+      }
+    ]
   },
   {
-    artist: `Audionautix`,
-    name: `Travel Light`,
-    image: `http://4.bp.blogspot.com/-kft9qu5ET6U/VPFUBi9W-MI/AAAAAAAACYM/UxXilXKYwOc/s1600/audionautix%2BHalf%2BSize.jpg`,
-    src: `https://www.youtube.com/audiolibrary_download?vid=a127d9b7de8a17cf`,
-    genre: `Country`
-  },
-  {
-    artist: `Riot`,
-    name: `	Level Plane`,
-    image: `https://i.ytimg.com/vi/jzgM3m8Vp1k/maxresdefault.jpg`,
-    src: `https://www.youtube.com/audiolibrary_download?vid=dfb828f40096184c`,
-    genre: `R&B`
-  },
-  {
-    artist: `Jingle Punks`,
-    name: `Lucky Day`,
-    image: `https://i.vimeocdn.com/portrait/992615_300x300`,
-    src: `https://www.youtube.com/audiolibrary_download?vid=bcbe5be936a32fb1`,
-    genre: `Pop`
-  },
-  {
-    artist: `Gunnar Olsen`,
-    name: `Home Stretch`,
-    image: `https://f4.bcbits.com/img/0004181452_10.jpg`,
-    src: `https://www.youtube.com/audiolibrary_download?vid=bcbe5be936a32fb1`,
-    genre: `Electronic`
-  },
-  {
-    artist: `bla1`,
-    name: `song bla1`,
-    image: `https://f4.bcbits.com/img/0004181452_0.jpg`,
-    src: `https://www.youtube.com/audiolibrary_download?vid=bcbe5be36a32fb1`,
-    genre: `Electronic`
-  },
-  {
-    artist: `bla2`,
-    name: `song bla2`,
-    image: `https://f4.bcbits.com/img/0004181452_0.jpg`,
-    src: `https://www.youtube.com/audiolibrary_download?vid=bcbe5be36a32fb1`,
-    genre: `Electronic`
+    "type": `artist`,
+    "question": `Кто исполняет эту песню?`,
+    "src": `https://www.youtube.com/audiolibrary_download?vid=dc3b4dc549becd6b`,
+    "answers": [
+      {
+        "image": {
+          "url": `http://placehold.it/705x455`,
+          "width": 300,
+          "height": 300
+        },
+        "title": `Пелагея`,
+        "isCorrect": false
+      },
+      {
+        "image": {
+          "url": `http://placehold.it/705x455`,
+          "width": 300,
+          "height": 300
+        },
+        "title": `Краснознамённая дивизия имени моей Бабушки`,
+        "isCorrect": false
+      },
+      {
+        "image": {
+          "url": `http://placehold.it/705x455`,
+          "width": 300,
+          "height": 300
+        },
+        "title": `Кровосток`,
+        "isCorrect": true
+      }
+    ]
   }
 ];

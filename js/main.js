@@ -1,4 +1,3 @@
-import welcomeScreen from './screen/welcome-screen';
-import data from './data/data';
+import Application from './application';
 
-welcomeScreen(data);
+Application.showWelcome();

@@ -1,20 +1,23 @@
 import AbstractView from '../abstractView';
-import headerView from "./header-view";
+import HeaderView from "./header-view";
+import PlayerView from "./player-view";
 
 export default class GenreView extends AbstractView {
-  constructor(data) {
+  constructor(model) {
     super();
-    this._data = data;
+    this.model = model;
+    this.question = model.getQuestion;
+    this.header = new HeaderView(this.model);
   }
 
   get template() {
     return `<section class="main main--level main--level-genre">
-              ${headerView(this._data.state)}                  
+              ${this.header.template}      
               <div class="main-wrap">
-                <h2 class="title">Выберите ${this._data.answers.correct.genre} треки</h2>
+                <h2 class="title">${this.question.question}</h2>
                 <form class="genre">
-                  ${this.getVariantsAnswers(this._data.answers.variants)}
-                  <button class="genre-answer-send" type="submit">Ответить</button>
+                  ${this.getVariantsAnswers(this.question.answers)}
+                  <button class="genre-answer-send" type="submit" disabled>Ответить</button>
                 </form>
               </div>
             </section>`;
@@ -22,18 +25,10 @@ export default class GenreView extends AbstractView {
 
   getVariantsAnswers(answerArr) {
     return answerArr.map((answer, i) => `<div class="genre-answer">
-                                        <div class="player-wrapper">
-                                          <div class="player">
-                                            <audio src="${answer.src}"></audio>
-                                            <button class="player-control player-control--pause"></button>
-                                            <div class="player-track">
-                                              <span class="player-status">${answer.genre}"</span>
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <input type="checkbox" name="answer" value="${answer.genre}" id="a-${i}">
-                                        <label class="genre-answer-check" for="a-${i}"></label>
-                                      </div>`).join(``);
+                                          ${(new PlayerView(answer.src)).template}
+                                          <input type="checkbox" name="answer" value="${answer.genre}" id="a-${i}">
+                                          <label class="genre-answer-check" for="a-${i}"></label>
+                                        </div>`).join(``);
   }
 
   bind() {
@@ -42,37 +37,37 @@ export default class GenreView extends AbstractView {
     let isCorrect;
 
     [...answersButton].forEach((answerButton) => {
-      answerButton.addEventListener(`change`, this.onAnswersChange);
+      answerButton.addEventListener(`change`, (evt) => {
+        evt.preventDefault();
+
+        const isAnswerButtonChecked = [...answersButton].some((item) => item.checked);
+        resultButton.disabled = !isAnswerButtonChecked;
+      });
     });
 
     resultButton.addEventListener(`click`, (evt) => {
-      const numberAnswers = [...answersButton].filter((item) => item.value === this._data.answers.correct.genre);
+      const numberAnswers = [...answersButton].filter((item) => item.value === this.question.genre);
       const answersButtonChecked = [...answersButton].filter((item) => item.checked);
       if (numberAnswers.length === answersButtonChecked.length) {
-        isCorrect = answersButtonChecked.every((item) => item.value === this._data.answers.correct.genre);
+        isCorrect = answersButtonChecked.every((item) => item.value === this.question.genre);
       } else {
         isCorrect = false;
       }
       evt.preventDefault();
 
-      this.onAnswerClick(isCorrect);
+      this.onAnswerClickGender(isCorrect);
+    });
+
+    [...this.element.querySelectorAll(`.player-control`)].forEach((playerControlButton) => {
+      playerControlButton.addEventListener(`click`, (evt) => this.onPlayClick(evt));
     });
   }
 
-  controlPlayer() {
-    const answers = this.element.querySelectorAll(`.genre-answer`);
-    [...answers].forEach((answer) => {
-      const playerButton = answer.querySelector(`.player-control`);
 
-      playerButton.addEventListener(`click`, (evt) => this.onPlayClick(evt));
-    });
-  }
+  /*
+  resetForm() {}*/
 
-  resetForm() {
-    this.element.querySelector(`.genre`).reset();
-  }
+  onAnswerClickGender() {}
 
-  onAnswersChange() {}
-
-  onAnswerClick() {}
+  onPlayClick() {}
 }
