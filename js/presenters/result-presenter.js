@@ -3,7 +3,10 @@ import welcomeScreen from './welcome-presenter';
 import calculateResult from '../calculateResult';
 import countResultPlayer from '../countResultPlayer';
 
-export default (data) => {
+export default class ResultPresenter {
+  constructor() {
+  }
+}) => {
   const view = calculateResult(data.totalAnswers);
 
   const resultScreen = countResultPlayer(view);
