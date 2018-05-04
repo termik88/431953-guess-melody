@@ -1,28 +1,26 @@
-import data from './data/data';
-import ResultOverTime from './view/resultIsOverTime-view';
-import ResultBad from './view/resultBad-view';
-import ResultGood from "./view/resultGood-view";
+import {statistics} from './data/game-data';
 
 export default (playerResult) => {
 
   const playerStatistics = Object.assign({}, playerResult, {current: true});
-  const generalStatistics = [...data.statistics, playerStatistics].sort((a, b) => b.result - a.result);
+  const generalStatistics = [...statistics, playerStatistics].sort((a, b) => b.result - a.result);
   const positionCurrentPlayer = generalStatistics.findIndex((item) => item.current) + 1;
   const successRate = (generalStatistics.length - positionCurrentPlayer) / generalStatistics.length * 100;
 
   if (300 - playerStatistics.time <= 0) {
-    return new ResultOverTime();
+    return {'title': `TIME_OVER`};
   }
 
   if (!playerStatistics.note) {
-    return new ResultBad();
+    return {'title': `GAME_OVER`};
   }
 
-  return new ResultGood({
+
+  return {'title': `SUCCESS`, 'resultObj': {
     'playerResult': playerResult.result,
     'numberFastAnswer': playerResult.numberFastAnswer,
     'positionStatistic': positionCurrentPlayer,
     'generalStatistic': generalStatistics.length,
     'successRate': successRate
-  });
+  }};
 };

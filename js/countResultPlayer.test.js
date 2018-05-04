@@ -1,3 +1,4 @@
+/*
 import {assert} from 'chai';
 import countResultPlayer from './countResultPlayer';
 
@@ -29,3 +30,4 @@ describe(`Функция вывода результата игрока`, () => 
     assert.equal(countResultPlayer(statistics, testPlyaeResult), `«У вас закончились все попытки. Ничего, повезёт в следующий раз!»`);
   });
 });
+*/

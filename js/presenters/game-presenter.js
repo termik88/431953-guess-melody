@@ -5,7 +5,7 @@ import GenreView from '../view/genre-view';
 export default class GamePresenter {
   constructor(model) {
     this.model = model;
-    this.stats = this.model.stats;
+    this.stats = this.model.getGameSettings;
     this.question = this.model.getQuestion;
     this.view = (this.question.type === `artist` ? new ArtistView(this.model) : new GenreView(this.model));
 
@@ -14,7 +14,7 @@ export default class GamePresenter {
 
       const element = evt.target;
       if (element.classList.contains(`player-control`)) {
-        const audio = evt.currentTarget.parentNode.querySelector(`audio`);
+        const audio = element.parentNode.querySelector(`audio`);
         if (element.classList.contains(`player-control--pause`)) {
           element.classList.remove(`player-control--pause`);
           audio.pause();
@@ -25,7 +25,7 @@ export default class GamePresenter {
       }
     };
 
-    this.view.onAnswerClick = (evt) => {
+    this.view.onAnswerClickArtist = (evt) => {
       evt.preventDefault();
       const element = evt.target;
 
@@ -40,37 +40,31 @@ export default class GamePresenter {
 
 
         if (this.stats.numberLives === 0 || this.stats.answers.length === this.stats.maxLevel) {
-          alert(`!!!!!!!!!`);
+          this.model.outResult();
+          Application.showStats(this.model);
         } else {
           Application.showGame(this.model);
         }
       }
     };
 
-    this.view.onAnswerClick1 = (isCorrect) => {
+    this.view.onAnswerClickGender = (isCorrect) => {
       if (!isCorrect) {
         this.model.loseLife();
       }
 
       this.stats.answers.push({'isCorrect': isCorrect, 'time': 25, 'note': this.stats.numberLives});
-      this.view.resetForm();
+      /*
+      this.view.resetForm();*/
 
       if (this.stats.numberLives === 0 || this.stats.answers.length === this.stats.maxLevel) {
-        alert(`!!!!!!!!!`);
+        this.model.outResult();
+        Application.showStats(this.model);
       } else {
         Application.showGame(this.model);
       }
     };
-
   }
-
-
-
-
-
-
-
-
 
   get screen() {
     return this.view.element;

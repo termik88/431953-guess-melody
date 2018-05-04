@@ -7,7 +7,7 @@ export default class GenreView extends AbstractView {
     super();
     this.model = model;
     this.question = model.getQuestion;
-    this.header = new HeaderView(this.model.getGameSettings);
+    this.header = new HeaderView(this.model);
   }
 
   get template() {
@@ -17,7 +17,7 @@ export default class GenreView extends AbstractView {
                 <h2 class="title">${this.question.question}</h2>
                 <form class="genre">
                   ${this.getVariantsAnswers(this.question.answers)}
-                  <button class="genre-answer-send" type="submit">Ответить</button>
+                  <button class="genre-answer-send" type="submit" disabled>Ответить</button>
                 </form>
               </div>
             </section>`;
@@ -32,41 +32,42 @@ export default class GenreView extends AbstractView {
   }
 
   bind() {
-    this.element.querySelector(`.main-wrap`).addEventListener(`click`, (evt) => this.onPlayClick(evt));
-
     const resultButton = this.element.querySelector(`.genre-answer-send`);
     const answersButton = this.element.querySelectorAll(`input[name=answer]`);
     let isCorrect;
 
     [...answersButton].forEach((answerButton) => {
-      answerButton.addEventListener(`change`, () => {
+      answerButton.addEventListener(`change`, (evt) => {
+        evt.preventDefault();
+
         const isAnswerButtonChecked = [...answersButton].some((item) => item.checked);
         resultButton.disabled = !isAnswerButtonChecked;
       });
     });
 
     resultButton.addEventListener(`click`, (evt) => {
-      const numberAnswers = [...answersButton].filter((item) => item.value === `val-true`);
+      const numberAnswers = [...answersButton].filter((item) => item.value === this.question.genre);
       const answersButtonChecked = [...answersButton].filter((item) => item.checked);
       if (numberAnswers.length === answersButtonChecked.length) {
-        isCorrect = answersButtonChecked.every((item) => item.value === `val-true`);
+        isCorrect = answersButtonChecked.every((item) => item.value === this.question.genre);
       } else {
         isCorrect = false;
       }
       evt.preventDefault();
 
-      this.onAnswerClick1(isCorrect);
+      this.onAnswerClickGender(isCorrect);
+    });
+
+    [...this.element.querySelectorAll(`.player-control`)].forEach((playerControlButton) => {
+      playerControlButton.addEventListener(`click`, (evt) => this.onPlayClick(evt));
     });
   }
 
 
-  resetForm() {
-    this.element.querySelector(`.genre`).reset();
-  }
+  /*
+  resetForm() {}*/
 
-  onAnswersChange() {}
-
-  onAnswerClick1() {}
+  onAnswerClickGender() {}
 
   onPlayClick() {}
 }

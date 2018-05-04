@@ -1,18 +1,21 @@
-import {changeView} from "../util";
-import welcomeScreen from './welcome-presenter';
-import calculateResult from '../calculateResult';
-import countResultPlayer from '../countResultPlayer';
+import Application from '../application';
+import ResultView from '../view/result-view';
 
 export default class ResultPresenter {
-  constructor() {
+  constructor(model) {
+    this.model = model;
+    this.view = new ResultView(this.model);
+
+    this.view.onRestartGame = (evt) => {
+      evt.preventDefault();
+
+      this.model.restartGame();
+      Application.showGame(model);
+    };
   }
-}) => {
-  const view = calculateResult(data.totalAnswers);
 
-  const resultScreen = countResultPlayer(view);
-  changeView(resultScreen.element);
+  get screen() {
+    return this.view.element;
+  }
+}
 
-  resultScreen.onClick = () => {
-    welcomeScreen(data);
-  };
-};

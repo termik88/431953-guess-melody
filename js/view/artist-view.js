@@ -7,7 +7,7 @@ export default class ArtistView extends AbstractView {
     super();
     this.model = model;
     this.question = model.getQuestion;
-    this.header = new HeaderView(this.model.getGameSettings);
+    this.header = new HeaderView(this.model);
     this.player = new PlayerView(this.question.src);
   }
 
@@ -36,11 +36,11 @@ export default class ArtistView extends AbstractView {
   }
 
   bind() {
-    this.element.querySelector(`.main-list`).addEventListener(`click`, (evt) => this.onAnswerClick(evt));
+    this.element.querySelector(`.main-list`).addEventListener(`click`, (evt) => this.onAnswerClickArtist(evt));
     this.element.querySelector(`.main-wrap`).addEventListener(`click`, (evt) => this.onPlayClick(evt));
   }
 
-  onAnswerClick() {}
+  onAnswerClickArtist() {}
 
   onPlayClick() {}
 }

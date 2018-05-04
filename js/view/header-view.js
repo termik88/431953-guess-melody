@@ -1,9 +1,10 @@
 import AbstractView from "../abstractView";
 
 export default class HeaderView extends AbstractView {
-  constructor(data) {
+  constructor(model) {
     super();
-    this.lives = data;
+    this.model = model;
+    this.lives = this.model.getGameSettings;
   }
 
   get template() {
@@ -11,7 +12,7 @@ export default class HeaderView extends AbstractView {
           <circle
             cx="390" cy="390" r="370"
             class="timer-line"
-            style="filter: url(../templates#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center"></circle>
+            style="filter: url(#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center"></circle>
 
           <div class="timer-value" xmlns="http://www.w3.org/1999/xhtml">
             <span class="timer-value-mins">05</span><!--
