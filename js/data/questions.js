@@ -47,7 +47,7 @@ export default [
   },
   {
     "type": "artist",
-    "question": "Кто исполняет эту песню?",
+    "question": `Кто исполняет эту песню?`,
     "src": `https://www.youtube.com/audiolibrary_download?vid=dc3b4dc549becd6b`,
     "answers": [
       {

@@ -32,36 +32,33 @@ export default class GenreView extends AbstractView {
   }
 
   bind() {
+    this.element.querySelector(`.main-wrap`).addEventListener(`click`, (evt) => this.onPlayClick(evt));
+
     const resultButton = this.element.querySelector(`.genre-answer-send`);
     const answersButton = this.element.querySelectorAll(`input[name=answer]`);
     let isCorrect;
 
     [...answersButton].forEach((answerButton) => {
-      answerButton.addEventListener(`change`, this.onAnswersChange);
+      answerButton.addEventListener(`change`, () => {
+        const isAnswerButtonChecked = [...answersButton].some((item) => item.checked);
+        resultButton.disabled = !isAnswerButtonChecked;
+      });
     });
 
     resultButton.addEventListener(`click`, (evt) => {
-      const numberAnswers = [...answersButton].filter((item) => item.value === this._data.answers.correct.genre);
+      const numberAnswers = [...answersButton].filter((item) => item.value === `val-true`);
       const answersButtonChecked = [...answersButton].filter((item) => item.checked);
       if (numberAnswers.length === answersButtonChecked.length) {
-        isCorrect = answersButtonChecked.every((item) => item.value === this._data.answers.correct.genre);
+        isCorrect = answersButtonChecked.every((item) => item.value === `val-true`);
       } else {
         isCorrect = false;
       }
       evt.preventDefault();
 
-      this.onAnswerClick(isCorrect);
+      this.onAnswerClick1(isCorrect);
     });
   }
 
-  controlPlayer() {
-    const answers = this.element.querySelectorAll(`.genre-answer`);
-    [...answers].forEach((answer) => {
-      const playerButton = answer.querySelector(`.player-control`);
-
-      playerButton.addEventListener(`click`, (evt) => this.onPlayClick(evt));
-    });
-  }
 
   resetForm() {
     this.element.querySelector(`.genre`).reset();
@@ -69,5 +66,7 @@ export default class GenreView extends AbstractView {
 
   onAnswersChange() {}
 
-  onAnswerClick() {}
+  onAnswerClick1() {}
+
+  onPlayClick() {}
 }

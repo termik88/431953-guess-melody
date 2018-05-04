@@ -1,5 +1,6 @@
-export const GAME_SETTINGS = {
-  MAX_LEVEL: 10,
-  NUMBER_LIVES: 3,
-  TIME: 300
+export let stats = {
+  maxLevel: 10,
+  numberLives: 3,
+  time: 300,
+  answers: []
 };

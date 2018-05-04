@@ -1,10 +1,10 @@
 import {getRandomIndex} from '../util';
-import {GAME_SETTINGS} from '../data/game-data';
+import {stats} from '../data/game-data';
 import questions from '../data/questions';
 
 export default class GameModel {
   constructor() {
-    this._gameSetting = GAME_SETTINGS;
+    this.stats = stats;
     this._questions = questions;
     this._question = this.renderQuestion();
   }
@@ -18,7 +18,11 @@ export default class GameModel {
   }
 
   get getGameSettings() {
-    return this._gameSetting;
+    return this.stats;
+  }
+
+  loseLife() {
+    this.stats.numberLives--;
   }
 
 }

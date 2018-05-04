@@ -3,8 +3,7 @@ import AbstractView from '../abstractView';
 export default class WelcomeView extends AbstractView {
   constructor(state) {
     super();
-    this.lives = state.lives;
-    this.time = state.time;
+    this.state = state;
   }
 
   get template() {
@@ -13,8 +12,8 @@ export default class WelcomeView extends AbstractView {
               <button class="main-play">Начать игру</button>
               <h2 class="title main-title">Правила игры</h2>
               <p class="text main-text">
-                Правила просты&nbsp;— за&nbsp;${this.time} минут ответить на все вопросы.<br>
-                Ошибиться можно ${this.lives} раза.<br>
+                Правила просты&nbsp;— за&nbsp;${this.state.time} минут ответить на все вопросы.<br>
+                Ошибиться можно ${this.state.lives} раза.<br>
                 Удачи!
               </p>
             </section>`;

@@ -26,21 +26,18 @@ export default class ArtistView extends AbstractView {
 
   getVariantsAnswers(answerArr) {
     return answerArr.map((answer, index) => `<div class="main-answer-wrapper">
-                                            <input class="main-answer-r" type="radio" id="answer-${index}" name="answer" value="val-${answer.isCorrect}"/>
-                                            <label class="main-answer" for="answer-${index}">
-                                              <img class="main-answer-preview" src=${answer.image.url}
-                                                   alt="${answer.title}" width="${answer.image.width}" height="${answer.image.height}">
-                                              ${answer.title}
-                                            </label>
-                                          </div>`).join(``);
+                                              <input class="main-answer-r" type="radio" id="answer-${index}" name="answer" value="val-${answer.isCorrect}"/>
+                                              <label class="main-answer" for="answer-${index}">
+                                                <img class="main-answer-preview" src=${answer.image.url}
+                                                     alt="${answer.title}" width="${answer.image.width}" height="${answer.image.height}">
+                                                ${answer.title}
+                                              </label>
+                                            </div>`).join(``);
   }
 
   bind() {
     this.element.querySelector(`.main-list`).addEventListener(`click`, (evt) => this.onAnswerClick(evt));
-  }
-
-  controlPlayer() {
-    this.element.querySelector(`.player-control`).addEventListener(`click`, (evt) => this.onPlayClick(evt));
+    this.element.querySelector(`.main-wrap`).addEventListener(`click`, (evt) => this.onPlayClick(evt));
   }
 
   onAnswerClick() {}
