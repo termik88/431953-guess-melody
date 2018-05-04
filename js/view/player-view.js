@@ -1,7 +1,7 @@
 import AbstractView from "../abstractView";
 
 export default class PlayerView extends AbstractView {
-  constructor(data){
+  constructor(data) {
     super();
     this.src = data;
   }
