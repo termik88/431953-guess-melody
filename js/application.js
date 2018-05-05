@@ -1,4 +1,4 @@
-import {changeView} from './util';
+import {changeView, checkStatus} from './util';
 
 import WelcomePresenter from './presenters/welcome-presenter';
 import WelcomeModel from './models/welcome-model';
@@ -8,19 +8,43 @@ import GameModel from './models/game-model';
 
 import ResultPresenter from './presenters/result-presenter';
 
+import SplashScreen from './splach/splash-screen';
+import ErrorView from "./view/error-view";
+
+let questData;
+
 export default class Application {
-  static showWelcome() {
+  static start() {
+    const splash = new SplashScreen();
+    changeView(splash.element);
+    splash.start();
+    window.fetch(`https://es.dump.academy/guess-melody/questions`).
+        then(checkStatus).
+        then((response) => response.json()).
+        then((data) => data).
+        then(Application.showWelcome).
+        catch(Application.showError).
+        then(() => splash.stop());
+  }
+
+  static showWelcome(data) {
+    questData = data;
     const welcome = new WelcomePresenter(new WelcomeModel());
     changeView(welcome.screen);
   }
 
-  static showGame(model = new GameModel()) {
-    const game = new GamePresenter(model);
+  static showGame(model) {
+    const game = new GamePresenter(model || new GameModel(questData));
     changeView(game.screen);
   }
 
   static showStats(model) {
     const result = new ResultPresenter(model);
     changeView(result.screen);
+  }
+
+  static showError(error) {
+    const errorView = new ErrorView(error);
+    changeView(errorView.element);
   }
 }

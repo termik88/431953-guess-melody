@@ -6,6 +6,7 @@ export default class GamePresenter {
   constructor(model) {
     this.model = model;
     this.stats = this.model.getGameSettings;
+    this.model.renderQuestion();
     this.question = this.model.getQuestion;
     this.view = (this.question.type === `artist` ? new ArtistView(this.model) : new GenreView(this.model));
 

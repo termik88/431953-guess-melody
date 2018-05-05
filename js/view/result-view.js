@@ -1,4 +1,4 @@
-import AbstractView from '../abstractView';
+import AbstractView from './abstractView';
 
 export default class ResultView extends AbstractView {
   constructor(model) {
