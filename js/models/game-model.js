@@ -1,19 +1,18 @@
-import {getRandomIndex} from '../util';
 import calculateResult from '../calculateResult';
 import countResultPlayer from '../countResultPlayer';
 import {INITIAL_STATE, stats} from '../data/game-data';
-import questions from '../data/questions';
 
 export default class GameModel {
-  constructor() {
+  constructor(questions) {
     this.stats = stats;
     this.initialState = INITIAL_STATE;
     this._questions = questions;
-    this._question = this.renderQuestion();
+    this.countQuestion = 0;
   }
 
   renderQuestion() {
-    return this._questions[getRandomIndex(this._questions.length)];
+    this._question = this._questions[this.countQuestion];
+    this.countQuestion++;
   }
 
   get getQuestion() {
@@ -71,6 +70,8 @@ export default class GameModel {
       answers: this.initialState.ANSWERS,
       result: this.initialState.RESULT
     };
+
+    this.countQuestion = 0;
   }
 }
 

@@ -1,4 +1,4 @@
-import AbstractView from '../abstractView';
+import AbstractView from './abstractView';
 import HeaderView from "./header-view";
 import PlayerView from "./player-view";
 
