@@ -1,10 +1,9 @@
 import AbstractView from './abstractView';
 
 export default class ResultView extends AbstractView {
-  constructor(model) {
+  constructor(data) {
     super();
-    this.model = model;
-    this.data = this.model.getResult;
+    this.data = data;
   }
 
   get template() {

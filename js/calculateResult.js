@@ -20,6 +20,15 @@ export default (answers) => {
     return POINTS.SLOW_ANSWER;
   };
 
+  if (answers.length === 3) {
+    return {
+      'result': -1,
+      'time': answers.reduce((result, answer) => result + answer.time, 0),
+      'note': answers[answers.length - 1].note,
+      'numberFastAnswer': fastAnswerCount
+    };
+  }
+
   return {
     'result': answers.reduce((result, answer) => result + getPoints(answer), 0),
     'time': answers.reduce((result, answer) => result + answer.time, 0),

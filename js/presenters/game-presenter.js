@@ -55,8 +55,6 @@ export default class GamePresenter {
       }
 
       this.stats.answers.push({'isCorrect': isCorrect, 'time': 25, 'note': this.stats.numberLives});
-      /*
-      this.view.resetForm();*/
 
       if (this.stats.numberLives === 0 || this.stats.answers.length === this.stats.maxLevel) {
         this.model.outResult();

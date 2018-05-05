@@ -1,5 +1,4 @@
 import calculateResult from '../calculateResult';
-import countResultPlayer from '../countResultPlayer';
 import {INITIAL_STATE, stats} from '../data/game-data';
 
 export default class GameModel {
@@ -28,34 +27,7 @@ export default class GameModel {
   }
 
   outResult() {
-    const {title, resultObj = ``} = countResultPlayer(calculateResult(this.stats.answers));
-    if (title === `SUCCESS`) {
-      this.stats.result = {
-        title: `Вы настоящий меломан!`,
-        textScore: `За&nbsp;3&nbsp;минуты и 25&nbsp;секунд
-              <br>вы&nbsp;набрали ${resultObj.playerResult} баллов (${resultObj.numberFastAnswer} быстрых)
-              <br>совершив 3 ошибки`,
-        textRang: `Вы заняли ${resultObj.positionStatistic} место из ${resultObj.generalStatistic}.
-              Это&nbsp;лучше чем у&nbsp;${resultObj.successRate}&nbsp;игроков`,
-        action: `Сыграть ещё раз`
-      };
-    }
-    if (title === `GAME_OVER`) {
-      this.stats.result = {
-        title: `Какая жалость!`,
-        textScore: ``,
-        textRang: `У&nbsp;вас закончились все попытки.<br>Ничего, повезёт в&nbsp;следующий раз!`,
-        action: `Попробовать ещё раз`
-      };
-    }
-    if (title === `TIME_OVER`) {
-      this.stats.result = {
-        title: `Какая жалость!`,
-        textScore: ``,
-        textRang: `Время вышло!<br>Вы&nbsp;не&nbsp;успели отгадать все мелодии`,
-        action: `Попробовать ещё раз`
-      };
-    }
+    this.result = calculateResult(this.stats.answers);
   }
 
   get getResult() {
@@ -73,5 +45,6 @@ export default class GameModel {
 
     this.countQuestion = 0;
   }
+
 }
 
