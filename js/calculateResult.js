@@ -1,6 +1,6 @@
 export default (answers) => {
 
-  const POINTS = {
+  const points = {
     FAST_ANSWER: 2,
     SLOW_ANSWER: 1,
     INCORRECT_ANSWER: -2
@@ -11,13 +11,13 @@ export default (answers) => {
 
   const getPoints = (answer) => {
     if (!answer.isCorrect) {
-      return POINTS.INCORRECT_ANSWER;
+      return points.INCORRECT_ANSWER;
     }
     if (answer.time < TIME_FAST_ANSWER) {
       fastAnswerCount++;
-      return POINTS.FAST_ANSWER;
+      return points.FAST_ANSWER;
     }
-    return POINTS.SLOW_ANSWER;
+    return points.SLOW_ANSWER;
   };
 
   if (answers.length === 3) {

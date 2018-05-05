@@ -8,7 +8,7 @@ export default class GamePresenter {
     this.stats = this.model.getGameSettings;
     this.model.renderQuestion();
     this.question = this.model.getQuestion;
-    this.view = (this.question.type === `artist` ? new ArtistView(this.model) : new GenreView(this.model));
+    this.view = (this.question.type === this.model.questionType.ARTIST ? new ArtistView(this.model) : new GenreView(this.model));
 
     this.view.onPlayClick = (evt) => {
       evt.preventDefault();

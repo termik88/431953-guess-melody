@@ -6,7 +6,7 @@ const countStatistic = (playerResult, statistics) => {
   const playerStatistics = Object.assign({}, playerResult, {current: true});
   const generalStatistics = [...statistics, playerStatistics].sort((a, b) => b.result - a.result);
   const positionCurrentPlayer = generalStatistics.findIndex((item) => item.current) + 1;
-  const successRate = (generalStatistics.length - positionCurrentPlayer) / generalStatistics.length * 100;
+  const successRate = Math.trunc((generalStatistics.length - positionCurrentPlayer) / generalStatistics.length * 100);
 
   if (300 - playerStatistics.time <= 0) {
     return {
@@ -31,7 +31,7 @@ const countStatistic = (playerResult, statistics) => {
     textScore: `За&nbsp;3&nbsp;минуты и 25&nbsp;секунд
               <br>вы&nbsp;набрали ${playerResult.result} баллов (${playerResult.numberFastAnswer} быстрых)
               <br>совершив 3 ошибки`,
-    textRang: `Вы заняли ${positionCurrentPlayer} место из ${generalStatistics.length}.
+    textRang: `Вы заняли ${positionCurrentPlayer} место из ${generalStatistics.length - 1}.
               Это&nbsp;лучше чем у&nbsp;${successRate}&nbsp;игроков`,
     action: `Сыграть ещё раз`
   };
@@ -40,6 +40,14 @@ const countStatistic = (playerResult, statistics) => {
 export default class ResultPresenter {
   constructor(model) {
     this.model = model;
+    this.model.statistics = [];
+  }
+
+  setStatistics(statisticsServer) {
+    this.model.statistics = statisticsServer;
+  }
+
+  get screen() {
     this.view = new ResultView(countStatistic(this.model.result, this.model.statistics));
 
     this.view.onRestartGame = (evt) => {
@@ -48,13 +56,7 @@ export default class ResultPresenter {
       this.model.restartGame();
       Application.showGame(this.model);
     };
-  }
 
-  setStatistics(statisticsServer) {
-    this.model.statistics = statisticsServer;
-  }
-
-  get screen() {
     return this.view.element;
   }
 }

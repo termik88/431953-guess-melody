@@ -38,16 +38,16 @@ export default class Application {
 
   static showStats(model) {
     const result = new ResultPresenter(model);
-    changeView(result.screen);
 
     const splash = new SplashScreen();
     splash.start();
 
     Loader.saveResults(model.result).
         then(() => Loader.loadResults()).
-        then((data) => result.setStatistics(data)).
-        catch(Application.showError).
-        then(() => splash.stop());
+        then((data) => {
+          result.setStatistics(data);
+          changeView(result.screen);
+        });
   }
 
   static showError(error) {

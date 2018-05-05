@@ -1,10 +1,11 @@
 import calculateResult from '../calculateResult';
-import {INITIAL_STATE, stats} from '../data/game-data';
+import {initialState, stats, questionType} from '../data/game-data';
 
 export default class GameModel {
   constructor(questions) {
     this.stats = stats;
-    this.initialState = INITIAL_STATE;
+    this.initialState = initialState;
+    this.questionType = questionType;
     this._questions = questions;
     this.countQuestion = 0;
   }
@@ -30,16 +31,12 @@ export default class GameModel {
     this.result = calculateResult(this.stats.answers);
   }
 
-  get getResult() {
-    return this.stats.result;
-  }
-
   restartGame() {
     this.stats = {
       maxLevel: this.initialState.MAX_LEVEL,
       numberLives: this.initialState.NUMBER_LIVES,
       time: this.initialState.TIME,
-      answers: this.initialState.ANSWERS,
+      answers: [],
       result: this.initialState.RESULT
     };
 
