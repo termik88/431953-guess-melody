@@ -14,7 +14,7 @@ const toJSON = (res) => res.json();
 
 export default class Loader {
   static loadData() {
-    return fetch(`${SERVER_URL}/questions`).then(checkStatus).then(toJSON).then((data) => data);
+    return fetch(`${SERVER_URL}/questions`).then(checkStatus).then(toJSON);
   }
 
   static loadResults() {

@@ -4,7 +4,7 @@ export default class HeaderView extends AbstractView {
   constructor(model) {
     super();
     this.model = model;
-    this.lives = this.model.getGameSettings;
+    this.lives = this.model.gameSettings;
   }
 
   get template() {

@@ -1,7 +1,7 @@
 export const initialState = Object.freeze({
   MAX_LEVEL: 10,
   NUMBER_LIVES: 3,
-  TIME: 300,
+  TIME: 50,
   ANSWERS: [],
   RESULT: ``
 });
