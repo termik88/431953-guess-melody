@@ -36,11 +36,31 @@ export default class ArtistView extends AbstractView {
   }
 
   bind() {
-    this.element.querySelector(`.main-list`).addEventListener(`click`, (evt) => this.onAnswerClickArtist(evt));
-    this.element.querySelector(`.main-wrap`).addEventListener(`click`, (evt) => this.onPlayClick(evt));
+    this.element.querySelector(`.main-list`).addEventListener(`click`, (evt) => {
+      evt.preventDefault();
+      const element = evt.target;
+
+      if (element.tagName.toLowerCase() === `img`) {
+        this.onAnswerClickArtist(element.parentNode.parentNode.querySelector(`input`).value === `val-true`);
+      }
+    });
+
+    this.element.querySelector(`.main-wrap`).addEventListener(`click`, (evt) => {
+      evt.preventDefault();
+
+      const element = evt.target;
+      if (element.classList.contains(`player-control`)) {
+        const audio = element.parentNode.querySelector(`audio`);
+        if (element.classList.contains(`player-control--pause`)) {
+          element.classList.remove(`player-control--pause`);
+          audio.pause();
+        } else {
+          element.classList.add(`player-control--pause`);
+          audio.play();
+        }
+      }
+    });
   }
 
   onAnswerClickArtist() {}
-
-  onPlayClick() {}
 }

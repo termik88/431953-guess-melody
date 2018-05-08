@@ -59,15 +59,24 @@ export default class GenreView extends AbstractView {
     });
 
     [...this.element.querySelectorAll(`.player-control`)].forEach((playerControlButton) => {
-      playerControlButton.addEventListener(`click`, (evt) => this.onPlayClick(evt));
+      playerControlButton.addEventListener(`click`, (evt) => {
+        evt.preventDefault();
+
+        const element = evt.target;
+        if (element.classList.contains(`player-control`)) {
+          const audio = element.parentNode.querySelector(`audio`);
+          if (element.classList.contains(`player-control--pause`)) {
+            element.classList.remove(`player-control--pause`);
+            audio.pause();
+          } else {
+            element.classList.add(`player-control--pause`);
+            audio.play();
+          }
+        }
+      });
     });
   }
 
 
-  /*
-  resetForm() {}*/
-
   onAnswerClickGender() {}
-
-  onPlayClick() {}
 }

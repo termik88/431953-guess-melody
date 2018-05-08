@@ -11,42 +11,21 @@ export default class GamePresenter {
     this.question = this.model.currentQuestion;
     this.view = (this.question.type === this.model.questionType.ARTIST ? new ArtistView(this.model) : new GenreView(this.model));
 
-    this.view.onPlayClick = (evt) => {
-      evt.preventDefault();
 
-      const element = evt.target;
-      if (element.classList.contains(`player-control`)) {
-        const audio = element.parentNode.querySelector(`audio`);
-        if (element.classList.contains(`player-control--pause`)) {
-          element.classList.remove(`player-control--pause`);
-          audio.pause();
-        } else {
-          element.classList.add(`player-control--pause`);
-          audio.play();
-        }
+    this.view.onAnswerClickArtist = (isCorrect) => {
+
+      if (!isCorrect) {
+        this.model.loseLife();
       }
-    };
 
-    this.view.onAnswerClickArtist = (evt) => {
-      evt.preventDefault();
-      const element = evt.target;
+      this.stats.answers.push({'isCorrect': isCorrect, 'time': this.model.time, 'note': this.stats.numberLives});
+      this.model.stopTimer();
 
-      if (element.tagName.toLowerCase() === `img`) {
-        const isCorrect = (element.parentNode.parentNode.querySelector(`input`).value === `val-true`);
-
-        if (!isCorrect) {
-          this.model.loseLife();
-        }
-
-        this.stats.answers.push({'isCorrect': isCorrect, 'time': this.model.time, 'note': this.stats.numberLives});
-        this.model.stopTimer();
-
-        if (this.stats.numberLives === 0 || this.stats.answers.length === this.stats.maxLevel) {
-          this.model.outResult();
-          Application.showStats(this.model);
-        } else {
-          Application.showGame(this.model);
-        }
+      if (this.stats.numberLives === 0 || this.stats.answers.length === this.stats.maxLevel) {
+        this.model.outResult();
+        Application.showStats(this.model);
+      } else {
+        Application.showGame(this.model);
       }
     };
 
