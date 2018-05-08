@@ -5,9 +5,10 @@ import GenreView from '../view/genre-view';
 export default class GamePresenter {
   constructor(model) {
     this.model = model;
-    this.stats = this.model.getGameSettings;
+    this.stats = this.model.gameSettings;
     this.model.renderQuestion();
-    this.question = this.model.getQuestion;
+    this.model.startTimer();
+    this.question = this.model.currentQuestion;
     this.view = (this.question.type === this.model.questionType.ARTIST ? new ArtistView(this.model) : new GenreView(this.model));
 
     this.view.onPlayClick = (evt) => {
@@ -37,8 +38,8 @@ export default class GamePresenter {
           this.model.loseLife();
         }
 
-        this.stats.answers.push({'isCorrect': isCorrect, 'time': 25, 'note': this.stats.numberLives});
-
+        this.stats.answers.push({'isCorrect': isCorrect, 'time': this.model.time, 'note': this.stats.numberLives});
+        this.model.stopTimer();
 
         if (this.stats.numberLives === 0 || this.stats.answers.length === this.stats.maxLevel) {
           this.model.outResult();
@@ -54,7 +55,8 @@ export default class GamePresenter {
         this.model.loseLife();
       }
 
-      this.stats.answers.push({'isCorrect': isCorrect, 'time': 25, 'note': this.stats.numberLives});
+      this.stats.answers.push({'isCorrect': isCorrect, 'time': this.model.time, 'note': this.stats.numberLives});
+      this.model.stopTimer();
 
       if (this.stats.numberLives === 0 || this.stats.answers.length === this.stats.maxLevel) {
         this.model.outResult();

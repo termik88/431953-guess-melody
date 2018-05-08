@@ -7,6 +7,9 @@ const countStatistic = (playerResult, statistics) => {
   const generalStatistics = [...statistics, playerStatistics].sort((a, b) => b.result - a.result);
   const positionCurrentPlayer = generalStatistics.findIndex((item) => item.current) + 1;
   const successRate = Math.trunc((generalStatistics.length - positionCurrentPlayer) / generalStatistics.length * 100);
+  const numberMistakes = 3 - playerResult.note;
+  const minutes = Math.trunc(playerResult.time / 60);
+  const second = playerResult.time - minutes * 60;
 
   if (300 - playerStatistics.time <= 0) {
     return {
@@ -28,11 +31,11 @@ const countStatistic = (playerResult, statistics) => {
 
   return {
     title: `Вы настоящий меломан!`,
-    textScore: `За&nbsp;3&nbsp;минуты и 25&nbsp;секунд
+    textScore: `За&nbsp;${minutes}&nbsp;минуты и ${second}&nbsp;секунд
               <br>вы&nbsp;набрали ${playerResult.result} баллов (${playerResult.numberFastAnswer} быстрых)
-              <br>совершив 3 ошибки`,
+              <br>совершив ${numberMistakes} ошибки`,
     textRang: `Вы заняли ${positionCurrentPlayer} место из ${generalStatistics.length - 1}.
-              Это&nbsp;лучше чем у&nbsp;${successRate}&nbsp;игроков`,
+              Это&nbsp;лучше чем у&nbsp;${successRate}&nbsp;&#37 игроков`,
     action: `Сыграть ещё раз`
   };
 };

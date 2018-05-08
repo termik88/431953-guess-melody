@@ -6,7 +6,7 @@ export default class ArtistView extends AbstractView {
   constructor(model) {
     super();
     this.model = model;
-    this.question = model.getQuestion;
+    this.question = model.currentQuestion;
     this.header = new HeaderView(this.model);
     this.player = new PlayerView(this.question.src);
   }

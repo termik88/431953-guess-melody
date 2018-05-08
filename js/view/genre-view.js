@@ -6,7 +6,7 @@ export default class GenreView extends AbstractView {
   constructor(model) {
     super();
     this.model = model;
-    this.question = model.getQuestion;
+    this.question = model.currentQuestion;
     this.header = new HeaderView(this.model);
   }
 
