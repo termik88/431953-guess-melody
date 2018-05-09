@@ -1,5 +1,4 @@
 import AbstractView from './abstractView';
-import HeaderView from "./header-view";
 import PlayerView from "./player-view";
 
 export default class GenreView extends AbstractView {
@@ -7,12 +6,12 @@ export default class GenreView extends AbstractView {
     super();
     this.model = model;
     this.question = model.currentQuestion;
-    this.header = new HeaderView(this.model);
   }
 
   get template() {
     return `<section class="main main--level main--level-genre">
-              ${this.header.template}      
+              ${this.model.timer.template}
+              ${this.model.mistakes.template}      
               <div class="main-wrap">
                 <h2 class="title">${this.question.question}</h2>
                 <form class="genre">

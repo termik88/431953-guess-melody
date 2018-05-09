@@ -1,5 +1,4 @@
 import AbstractView from './abstractView';
-import HeaderView from './header-view';
 import PlayerView from './player-view';
 
 export default class ArtistView extends AbstractView {
@@ -7,13 +6,13 @@ export default class ArtistView extends AbstractView {
     super();
     this.model = model;
     this.question = model.currentQuestion;
-    this.header = new HeaderView(this.model);
     this.player = new PlayerView(this.question.src);
   }
 
   get template() {
     return `<section class="main main--level main--level-artist">
-              ${this.header.template}
+              ${this.model.timer.template}
+              ${this.model.mistakes.template}
               <div class="main-wrap">
                 <h2 class="title main-title">${this.question.question}</h2>
                 ${this.player.template}
