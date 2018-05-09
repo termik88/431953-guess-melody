@@ -33,8 +33,15 @@ export default class GameModel {
     this.result = calculateResult(this.stats.answers);
   }
 
-  startTimer() {
-    this.timerId = setInterval(() => this.time++, 1000);
+  startTimer(funUpdate) {
+    this.timerId = setInterval(() => {
+      this.time++;
+      this.stats.time--;
+      funUpdate(this.stats.time);
+      if (!this.stats.time) {
+        clearInterval(this.timerId);
+      }
+    }, 1000);
   }
 
   stopTimer() {
